@@ -23,7 +23,7 @@
     <!-- Header -->
     <header>
         <!-- Jumbotron -->
-        <div class="bg-white border-b border-gray-200 py-3 text-center">
+        <div class="bg-white border-b border-pink-200 py-3 text-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <!-- Logo -->
@@ -83,7 +83,7 @@
         </div>
 
         <!-- Navbar -->
-        <nav class="bg-white border-b border-gray-200">
+        <nav class="bg-pink-200 shadow-sm sticky top-0 z-40 text-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center py-3">
                     <div class="flex items-center">

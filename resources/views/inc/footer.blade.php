@@ -1,4 +1,4 @@
-<footer class="py-5 text-white" style="background-color: #3D281C">
+<footer class="py-5 text-white bg-pink-400">
     <div class="max-w-7xl mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
@@ -7,7 +7,7 @@
                         <img src="{{ asset('image/light-logo.png') }}" height="40" alt="Logo" />
                     </a>
                 </h5>
-                <p class="text-sm">"LUXORA by Ojas Jewel Jewellers", 125, Subhash Nagar, Near Jubilee Garden, Rajkot, Gujarat 360001</p>
+                <p class="text-sm">LUXORA by Ojas Jewel Emporium<br>3013-15-A, First Floor, Gali No. 19 Ranjit Nagar, New Delhi-110008</p>
             </div>
 
             <div>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="h-48">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29537.954953993132!2d70.78187451546843!3d22.26873120136533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959ca7ecb46581f%3A0x8c56f6448dde780d!2sBhakti%20Nagar%2C%20Rajkot%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1742533470265!5m2!1sen!2sin"
+                <iframe src=""
                     class="w-full h-full border border-white rounded"
                     allowfullscreen=""
                     loading="lazy"
@@ -40,6 +40,6 @@
         </div>
     </div>
 </footer>
-<div class="text-center py-4 text-white" style="background-color: #2C1E16">
-    &copy; {{ date('Y') }} LUXORA by Ojas Jewel Jewellers. All rights reserved.
+<div class="text-center py-4 text-white bg-gray-500">
+    &copy; {{ date('Y') }} LUXORA by Ojas Jewel Emporium. All rights reserved.
 </div>
