@@ -1,52 +1,52 @@
 @extends('layout.app')
 
 @section('content')
-<div class="container my-3">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card shadow">
-                <h4 class="card-header text-center text-white" style="background-color: #5C3422">{{ __('Sign In') }}</h4>
+<div class="container mx-auto my-8 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div class="flex justify-center">
+        <div class="w-full max-w-md">
+            <div class="bg-white shadow-lg rounded-lg">
+                <h4 class="text-center text-white py-4 rounded-t-lg bg-pink-400" >{{ __('Sign In') }}</h4>
 
-                <div class="card-body">
+                <div class="p-6">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700">{{ __('Email Address') }}</label>
 
-                            <div class="">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <div>
+                                <input id="email" type="email" class="mt-1 block w-full px-3 py-2 border border-pink-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-600 @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-600 text-sm mt-1" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-form-label">{{ __('Password') }}</label>
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium text-gray-700">{{ __('Password') }}</label>
 
-                            <div class="">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <div>
+                                <input id="password" type="password" class="mt-1 block w-full px-3 py-2 border border-pink-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-500 @error('password') border-red-500 @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-600 text-sm mt-1" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="d-flex align-items-center flex-column">
-                                <button type="submit" class="btn text-white px-5" style="background-color: #5C3422">
+                        <div class="mb-0">
+                            <div class="flex flex-col items-center">
+                                <button type="submit" class="w-full px-5 py-2 text-white rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-[#5C3422] focus:ring-offset-2 bg-pink-400" >
                                     {{ __('Sign In') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link text-dark mt-2 w-100 text-end" href="{{ route('password.request') }}">
+                                    <a class="mt-2 text-sm text-blue-900 hover:underline w-full text-right" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif

@@ -3,6 +3,12 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\Category;
+use App\Models\Gemstone;
+use App\Models\Metal;
+use App\Models\Occasion;
+use App\Models\Product;
+
 use App\Models\Cart;
 
 use Illuminate\Support\Facades\Auth;
