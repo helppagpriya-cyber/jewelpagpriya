@@ -7,25 +7,29 @@
                         <img src="{{ asset('image/light-logo.png') }}" height="40" alt="Logo" />
                     </a>
                 </h5>
-                <p class="text-sm">LUXORA by Ojas Jewel Emporium<br>3013-15-A, First Floor, Gali No. 19 Ranjit Nagar, New Delhi-110008</p>
+                <p class="text-sm">PAGPRIYA by Ojas Jewel Emporium<br>3013-15-A, First Floor, Gali No. 19 Ranjit Nagar, New Delhi-110008</p>
             </div>
 
             <div>
                 <h2 class="text-lg font-semibold mb-2">Categories</h2>
-                <ul class="space-y-1">
-                    <li><a href="{{ url('subcategory/1') }}" class="block text-white hover:underline">Rings</a></li>
-                    <li><a href="{{ url('subcategory/6') }}" class="block text-white hover:underline">Necklace</a></li>
-                    <li><a href="{{ url('subcategory/4') }}" class="block text-white hover:underline">Earings</a></li>
+                 <div class="flex flex-wrap gap-2">
+                <ul class="space-y-2">
+                    <li class="bg-white text-black px-2 py-1 rounded text-sm hover:bg-green-400"><a href="{{ url('subcategory/1') }}" >Rings</a></li>
+                    <li class="bg-white text-black px-2 py-1 rounded text-sm hover:bg-green-400"><a href="{{ url('subcategory/6') }}" >Necklace</a></li>
+                    <li class="bg-white text-black px-2 py-1 rounded text-sm hover:bg-green-400"><a href="{{ url('subcategory/4') }}" >Earings</a></li>
                 </ul>
+                </div>
             </div>
 
             <div>
                 <h2 class="text-lg font-semibold mb-2">Occasions</h2>
                 <div class="flex flex-wrap gap-2">
-                    <span class="bg-white text-black px-2 py-1 rounded text-sm">Wedding</span>
-                    <span class="bg-white text-black px-2 py-1 rounded text-sm">Engagement</span>
-                    <span class="bg-white text-black px-2 py-1 rounded text-sm">Regular Wear</span>
-                    <span class="bg-white text-black px-2 py-1 rounded text-sm">Festival</span>
+                    <ul>
+                    <li class="bg-white text-black px-2 py-1 rounded text-sm mb-2">Wedding</li>
+                    <li class="bg-white text-black px-2 py-1 rounded text-sm mb-2">Engagement</li>
+                    <li class="bg-white text-black px-2 py-1 rounded text-sm mb-2">Regular Wear</li>
+                    <li class="bg-white text-black px-2 py-1 rounded text-sm mb-2">Festival</li>
+                    </ul>
                 </div>
             </div>
 
@@ -41,5 +45,5 @@
     </div>
 </footer>
 <div class="text-center py-4 text-white bg-gray-500">
-    &copy; {{ date('Y') }} LUXORA by Ojas Jewel Emporium. All rights reserved.
+    &copy; {{ date('Y') }} PAGPRIYA by Ojas Jewel Emporium. All rights reserved.
 </div>

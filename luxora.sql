@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `LUXORA by Ojas Jewel`
+-- Database: `PAGPRIYA by Ojas Jewel`
 --
 
 -- --------------------------------------------------------
@@ -471,7 +471,7 @@ INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `comment`, `imag
 (3, 2, 2, 5, NULL, NULL, '2025-03-20 08:37:39', '2025-03-20 08:37:39'),
 (4, 2, 3, 3, NULL, NULL, '2025-03-20 08:37:48', '2025-03-20 08:37:48'),
 (5, 3, 4, 5, NULL, NULL, '2025-03-20 08:38:18', '2025-03-20 08:38:18'),
-(6, 2, 4, 5, 'Very nice product !!! it is awesome ...\nI loved the product ....\nBest shopping ever.... !! Thanks LUXORA by Ojas Jewel', '[\"reviews\\/01JQ61G3HX2R9RYRAKF8Y3W5V8.jpg\"]', '2025-03-23 01:47:28', '2025-03-25 01:28:03');
+(6, 2, 4, 5, 'Very nice product !!! it is awesome ...\nI loved the product ....\nBest shopping ever.... !! Thanks PAGPRIYA by Ojas Jewel', '[\"reviews\\/01JQ61G3HX2R9RYRAKF8Y3W5V8.jpg\"]', '2025-03-23 01:47:28', '2025-03-25 01:28:03');
 
 -- --------------------------------------------------------
 

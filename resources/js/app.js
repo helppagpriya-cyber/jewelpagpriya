@@ -108,8 +108,3 @@ function showSuccessAlert(message) {
         console.warn('Success alert elements not found');
     }
 }
-document.addEventListener('livewire:initialized', () => {
-    Livewire.on('show-alert', (event) => {
-        showSuccessAlert(event.message);
-    });
-});

@@ -6,9 +6,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
-# 💎 LUXORA by Ojas Jewel - Jewellery Shop Website
+# 💎 PAGPRIYA by Ojas Jewel - Jewellery Shop Website
 
-Welcome to **LUXORA by Ojas Jewel**, an elegant and feature-rich jewellery shop web application built to deliver seamless shopping experiences for both customers and administrators.
+Welcome to **PAGPRIYA by Ojas Jewel**, an elegant and feature-rich jewellery shop web application built to deliver seamless shopping experiences for both customers and administrators.
 
 ---
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXORA by Ojas Jewel | Feel Luxury</title>
+    <title>PAGPRIYA by Ojas Jewel | Feel Luxury</title>
     <!-- Vite for Tailwind CSS and JavaScript -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Font Awesome for icons -->
@@ -23,17 +23,17 @@
     <!-- Header -->
     <header>
         <!-- Jumbotron -->
-        <div class="bg-white border-b border-pink-200 py-3 text-center">
+        <div class="bg-white py-3 text-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <!-- Logo -->
                     <div class="flex justify-center md:justify-start w-full md:w-1/3 mb-3 md:mb-0">
                         <a href="/" class="ml-0 md:ml-2">
-                            <img src="{{ asset('image/dark-logo.png') }}" alt="LUXORA by Ojas Jewel Logo" class="h-6">
+                            <img src="{{ asset('image/dark-logo.png') }}" alt="PAGPRIYA by Ojas Jewel Logo" class="h-6">
                         </a>
                     </div>
                     <!-- Empty Middle Section -->
-                    <div class="w-full md:w-1/3"></div>
+                    
                     <!-- User Actions -->
                     <div class="flex justify-center md:justify-end w-full md:w-1/3 items-center">
                         <div class="flex items-center space-x-4">
@@ -63,7 +63,7 @@
                                             {{ Auth::user()->name }}
                                             <i class="fas fa-chevron-down ml-1"></i>
                                         </button>
-                                        <div class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10" id="dropdown-menu">
+                                        <div class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50" id="dropdown-menu">
                                             <a href="{{ url('/profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">{{ __('Profile') }}</a>
                                             <a href="{{ route('logout') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -81,7 +81,7 @@
                 </div>
             </div>
         </div>
-
+         
         <!-- Navbar -->
         <nav class="bg-pink-200 shadow-sm sticky top-0 z-40 text-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </nav>
-    </header>
+   </header>
 
     <!-- Orders Offcanvas -->
     <div class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50" id="ordercanvas" aria-labelledby="ordercanvas-title">
@@ -127,7 +127,7 @@
             <div class="flex-1 overflow-y-auto p-4">
                 @if(Auth::user())
                     @forelse(Auth::user()->orders as $order)
-                        <div class="border border-gray-200 rounded-lg p-3 mb-3">
+                        <div class="border border-gray-200 rounded-lg p-2 mb-2">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-sm font-medium">Order ID: #ORD{{ $order->id }}</span>
                                 @if($order->status == 'delivered')

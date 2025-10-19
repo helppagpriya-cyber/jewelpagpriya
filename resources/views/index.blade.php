@@ -1,5 +1,7 @@
 @extends('layout.app')
 @section('content')
+
+
     @if(session()->has('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
             {{ session('success') }}
@@ -8,35 +10,31 @@
             </button>
         </div>
     @endif
-{{--slider--}}
-<div id="carouselExampleDark" class="relative">
-    <div class="relative">
-        @foreach($sliders as $slider)
-            <div class="relative h-[50vh] {{ $loop->first ? 'block' : 'hidden' }}" data-bs-interval="10000">
-                <div class="flex flex-col md:flex-row h-full">
-                    <div class="md:w-1/2 flex flex-col items-center justify-center bg-[#5C3422] text-white p-4">
-                        <h3 class="text-2xl font-bold">{{ $slider->text }}</h3>
-                        <p class="mt-5">{{ $slider->description }}</p>
-                    </div>
-                    <div class="md:w-1/2 bg-blue-200 p-0">
-                        <img src="{{ asset('storage/' . $slider->image) }}" class="w-full h-full object-cover" alt="Slider image">
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-    <button class="absolute top-1/2 left-0 transform -translate-y-1/2 p-4" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-        <span class="inline-block w-8 h-8 bg-black bg-opacity-50 rounded-full" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </button>
-    <button class="absolute top-1/2 right-0 transform -translate-y-1/2 p-4" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-        <span class="inline-block w-8 h-8 bg-black bg-opacity-50 rounded-full" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </button>
-</div>
-{{--slider--}}
 
-{{--static data--}}
+<div class="slideshow-container h-[450px] overflow-hidden">
+     <!-- Full-width images with number and caption text -->
+  @foreach($sliders as $slider)
+  <div class="mySlides fade">
+    <div class="numbertext hidden">{{ $slider->id }}</div>
+    <img src="{{ asset('storage/' . $slider->image) }}"  >
+    <div class="text">{{ $slider->text }}</div>
+  </div>
+  @endforeach
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- The dots/circles -->
+
+<div style="text-align:center">
+  @foreach($sliders as $slider)
+    <span class="dot" onclick="currentSlide{{ $slider->id }}"></span>
+  @endforeach
+</div>
+
+{{-- static data --}}
 <div class="container mx-auto">
     <div class="flex flex-wrap mt-3 -mx-2">
         <div class="w-full md:w-1/3 px-2">
@@ -162,6 +160,37 @@
         @endforeach
     </div>
 </div>
-{{--cards--}}
 
+
+<script>
+    let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+
+</script>
 @endsection

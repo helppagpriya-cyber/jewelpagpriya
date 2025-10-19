@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>LUXORA by Ojas Jewel</title>
+    <title>PAGPRIYA by Ojas Jewel</title>
     <!-- Ensure Tailwind CSS is included, e.g., via CDN or your build process -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -12,13 +12,13 @@
         <thead>
         <tr>
             <th class="w-1/2 text-left" colspan="2">
-                <h2 class="text-2xl font-bold text-[#5C3422]">LUXORA by Ojas Jewel</h2>
+                <h2 class="text-2xl font-bold text-[#5C3422]">PAGPRIYA by Ojas Jewel</h2>
             </th>
             <th class="w-1/2 text-right text-sm font-normal" colspan="2">
                 <span class="block mb-1">Invoice Id: #ORD{{ $order->id }}</span>
                 <span class="block mb-1">Date: {{ date('d / m / Y') }}</span>
                 <span class="block mb-1">Pin code: 360001</span>
-                <span class="block mb-1">Address: "LUXORA by Ojas Jewel Jewellers", 125, Subhash Nagar,<br> Near Jubilee Garden, Rajkot, Gujarat</span>
+                <span class="block mb-1">Address: "PAGPRIYA by Ojas Jewel Jewellers", 125, Subhash Nagar,<br> Near Jubilee Garden, Rajkot, Gujarat</span>
             </th>
         </tr>
         <tr class="bg-[#5C3422] text-white">
@@ -116,7 +116,7 @@
     </table>
 
     <p class="text-center mt-4">
-        Thank you for shopping with LUXORA by Ojas Jewel
+        Thank you for shopping with PAGPRIYA by Ojas Jewel
     </p>
 </div>
 </body>

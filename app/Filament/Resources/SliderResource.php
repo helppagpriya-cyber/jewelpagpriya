@@ -51,7 +51,7 @@ class SliderResource extends Resource
                         Forms\Components\ColorPicker::make('bg_color')
                             ->required()
                             ->label('Background Color')
-                            ->default('#5C3422'),
+                            ->default('#ffffffff'),
                         Forms\Components\Toggle::make('status')
                             ->label('Status')
                             ->onIcon('heroicon-m-eye')
@@ -91,6 +91,7 @@ class SliderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
