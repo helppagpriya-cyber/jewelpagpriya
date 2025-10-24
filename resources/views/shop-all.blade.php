@@ -2,8 +2,8 @@
 @section('content')
 
     <div class="container mx-auto my-2">
-        <h2 class="text-center text-3xl font-bold">Order Cart Items</h2>
-        <div class="container mx-auto my-3 bg-white shadow-md rounded-lg py-2">
+        <h2 class="text-center text-3xl font-bold">PLACE YOUR ORDER</h2>
+        <div class="container mx-auto my-3 bg-white shadow-md rounded-lg py-2 px-4">
             <h4 class="text-center text-xl font-semibold">User Details</h4>
             <form action="{{ url('shopAll') }}" method="POST">
                 @csrf
@@ -19,7 +19,9 @@
                     <div class="w-full md:w-1/2 px-2 mb-3">
                         <label for="payment_mode" class="block text-sm font-medium text-gray-700">Payment Mode <span class="text-red-500">*</span></label>
                         <select id="payment_mode" name="payment_mode" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option value="COD">Cash on Delivery</option>
+                            <option value="ONLINE">ONLINE PAYMENT</option>
+                        
+                            <option value="COD">CASH ON DELIVERY</option>
                         </select>
                         @error('payment_mode')
                             <small class="text-red-500 text-xs">{{ $message }}</small>
@@ -28,9 +30,9 @@
                     <div class="w-full px-2">
                         <p class="text-sm font-medium">Select Address <span class="text-red-500">*</span></p>
                         @foreach(auth()->user()->userAddresses as $k => $add)
-                            <div class="mb-3 w-full md:w-1/2 mx-auto border border-gray-300 rounded-md p-2">
+                                <div class="mb-3 w-full md:w-1/2 mx-auto border border-gray-300 rounded-md p-2">
                                 <input type="radio" name="address" value="{{ $add->id }}" id="address_{{ $add->id }}" {{ $k == 0 ? 'checked' : '' }} class="mr-2">
-                                <label for="address_{{ $add->id }}" class="flex text-sm font-medium text-gray-700"> {!! $add->address !!}, {{ $add->city }}, {{ $add->state }}, {{ $add->pin }} , <b class="ml-1">Mo:</b> {{ $add->phone }}</label>
+                                <label for="address_{{ $add->id }}" class="flex text-sm font-medium text-gray-700"> {!! $add->address !!}, {{ $add->city }}, {{ $add->state }}, {{ $add->pin }} , <b class="ml-1">Mob:</b> {{ $add->phone }}</label>
                             </div>
                         @endforeach
                         @error('address')
@@ -43,8 +45,8 @@
             <div class="container mx-auto my-3 bg-white shadow-md rounded-lg py-2">
                 <h4 class="text-center text-xl font-semibold">Cart Details</h4>
                 @if(auth()->user()->orders->count() == 0)
-                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
-                        Congrats 🎉!! This will be your first order, You will get Rs. 5000 off on first order item !!🥳
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 mb-4 rounded relative" role="alert">
+                        Congrats 🎉!! This will be your first order, You will get Rs. 50/- off on first order item !!🥳
                     </div>
                 @endif
                 @foreach(auth()->user()->carts as $key => $cartItem)
