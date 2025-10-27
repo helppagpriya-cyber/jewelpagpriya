@@ -3,6 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Route as RouteFacade;
+use App\Livewire\Counter;
+
+
+Route::get('/counter', Counter::class);
+
 Auth::routes();
 
 Route::controller(\App\Http\Controllers\IndexController::class)->group(function(){

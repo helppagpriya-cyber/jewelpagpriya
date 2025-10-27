@@ -101,6 +101,9 @@
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-phone text-gray-700"></i>
                         <span class="text-gray-700">{{ config('contact.phone', '+91-1234567890') }}</span>
+                        <i class="fas fa-envelope text-gray-700"></i>
+                        <span class="text-gray-700">{{ config('contact.email', 'help.pagpriya@gmail.com') }}</span>
+                    
                     </div>
                 </div>
                 <!-- Mobile Menu -->
@@ -257,7 +260,7 @@
                                     @endphp
                                     <div class="flex items-center mt-1">
                                         <span class="text-sm">Rs. {{ $cart->quantity * $price }}</span>
-                                        <input type="number" wire:model.debounce.500ms="cart.{{ $cart->product_id }}.quantity" wire:change="updateQuantity({{ $cart->product_id }}, $event.target.value)" value="{{ $cart->quantity }}" min="1" class="ml-4 w-20 p-1 border border-gray-300 rounded text-sm focus:ring focus:ring-brand focus:border-brand">
+                                        <input type="number" wire:model.live.debounce.500ms="cart.{{ $cart->product_id }}.quantity" wire:change="updateQuantity({{ $cart->product_id }}, $event.target.value)" value="{{ $cart->quantity }}" min="1" class="ml-4 w-20 p-1 border border-gray-300 rounded text-sm focus:ring focus:ring-brand focus:border-brand">
                                     </div>
                                 </div>
                             </a>

@@ -62,7 +62,7 @@
                 @else
                     <p class="text-3xl font-bold mt-4">Rs. {{ $productSize->metal_price + $productSize->gemstone_price + $productSize->making_charges + $productSize->gst }}</p>
                 @endif
-                <p class="flex items-center">Quantity : &nbsp; <input type="number" wire:model="quantity" value="1" class="w-24 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></p>
+                <p class="flex items-center">Quantity : &nbsp; <input type="number" wire:model.live="quantity" value="1" class="w-24 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></p>
                 <div class="flex flex-wrap -mx-2 mt-4">
                     <div class="w-full md:w-1/2 px-2">
                         <button class="bg-[#8A634A] text-white w-full py-2 rounded hover:bg-[#7a553f]" wire:click="AddToCart()">Add To Cart</button>

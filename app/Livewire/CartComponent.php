@@ -26,7 +26,7 @@ class CartComponent extends Component
     public function removeFromCart($productId)
     {
         if (!Auth::check()) {
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Please log in to manage your cart']);
+            $this->dispatch('show-alert', ['message' => 'Please log in to manage your cart']);
             return;
         }
 
@@ -34,34 +34,34 @@ class CartComponent extends Component
         if ($cart) {
             $cart->delete();
             $this->cart = Auth::user()->carts->toArray();
-            $this->emit('cartUpdated');
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Item removed from cart']);
+            $this->dispatch('cartUpdated');
+            $this->dispatch('show-alert', ['message' => 'Item removed from cart']);
         } else {
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Item not found in cart']);
+            $this->dispatch('show-alert', ['message' => 'Item not found in cart']);
         }
     }
 
     public function removeFromWishlist($productId)
     {
         if (!Auth::check()) {
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Please log in to manage your wishlist']);
+            $this->dispatch('show-alert', ['message' => 'Please log in to manage your wishlist']);
             return;
         }
 
         $wishlist = Auth::user()->wishlists()->where('product_id', $productId)->first();
         if ($wishlist) {
             $wishlist->delete();
-            $this->emit('wishlistUpdated');
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Item removed from wishlist']);
+            $this->dispatch('wishlistUpdated');
+            $this->dispatch('show-alert', ['message' => 'Item removed from wishlist']);
         } else {
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Item not found in wishlist']);
+            $this->dispatch('show-alert', ['message' => 'Item not found in wishlist']);
         }
     }
 
     public function updateQuantity($productId, $quantity)
     {
         if (!Auth::check()) {
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Please log in to manage your cart']);
+            $this->dispatch('show-alert', ['message' => 'Please log in to manage your cart']);
             return;
         }
 
@@ -69,10 +69,10 @@ class CartComponent extends Component
         if ($cart && $quantity >= 1) {
             $cart->update(['quantity' => $quantity]);
             $this->cart = Auth::user()->carts->toArray();
-            $this->emit('cartUpdated');
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Cart quantity updated']);
+            $this->dispatch('cartUpdated');
+            $this->dispatch('show-alert', ['message' => 'Cart quantity updated']);
         } else {
-            $this->dispatchBrowserEvent('show-alert', ['message' => 'Invalid cart item or quantity']);
+            $this->dispatch('show-alert', ['message' => 'Invalid cart item or quantity']);
         }
     }
 

@@ -80,7 +80,7 @@
                                     @enderror
                                 </div>
                                 @if(auth()->user()->orders->count() == 0)
-                                    <b class="w-full px-2">You will get Rs. 5000 off in mentioned price !!</b>
+                                    <b class="w-full px-2">You will get Rs. 50/- off in mentioned price !!</b>
                                 @endif
                                 <p class="card-text w-full px-2" id="productSizePrice{{ $key }}">Price : Rs. {{ $cartItem->productSize->metal_price + $cartItem->productSize->gemstone_price + $cartItem->productSize->making_charges + $cartItem->productSize->gst }} /Pc</p>
                             </div>
@@ -97,14 +97,14 @@
                                         <input type="checkbox" name="is_gifted[{{ $key }}]" class="form-check mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
                                         Gift Someone Special
                                     </label>
-                                    <p class="text-sm"><b>Free (No Charge)</b></p>
+                                    <p class="text-sm"><b>Charges apply</b></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
-            <button type="submit" class="bg-[#5C3422] text-white px-4 py-2 rounded block mx-auto mb-3 hover:bg-[#4a2b1b]" {{ auth()->user()->carts()->count() == 0 ? 'disabled' : '' }}>Order All Items</button>
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded block mx-auto mb-3 hover:bg-green-800" {{ auth()->user()->carts()->count() == 0 ? 'disabled' : '' }}>Place Your Order</button>    
         </form>
     </div>
 

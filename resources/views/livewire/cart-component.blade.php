@@ -32,7 +32,7 @@
                                     @endphp
                                     <div class="flex items-center mt-1">
                                         <span class="text-sm">Rs. {{ $cart->quantity * $price }}</span>
-                                        <input type="number" wire:model.debounce.500ms="cart.{{ $cart->product_id }}.quantity" wire:change="updateQuantity({{ $cart->product_id }}, $event.target.value)" value="{{ $cart->quantity }}" min="1" class="ml-4 w-20 p-1 border border-gray-300 rounded text-sm focus:ring focus:ring-brand focus:border-brand">
+                                        <input type="number" wire:model.live.debounce.500ms="cart.{{ $cart->product_id }}.quantity" wire:change="updateQuantity({{ $cart->product_id }}, $event.target.value)" value="{{ $cart->quantity }}" min="1" class="ml-4 w-20 p-1 border border-gray-300 rounded text-sm focus:ring focus:ring-brand focus:border-brand">
                                     </div>
                                 </div>
                             </a>

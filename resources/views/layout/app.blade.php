@@ -13,9 +13,10 @@
 
     <body>
         
-         @yield('content')
+        @yield('content')
         {{-- {{ $slot }} --}}
         @include('../inc.footer')
+        
         @livewireScripts
     </body>
 </html>
