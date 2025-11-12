@@ -8,18 +8,27 @@ class Order extends Model
 {
     protected $fillable = [
         'user_id',
-        'total_amount',
         'status',
         'shipped_date',
+        'total_amount',
         'delivered_date',
         'is_express_delivery',
         'delivery_charges',
         'payment_mode',
         'payment_status',
         'user_address_id',
-        'tracking_no'
+        'tracking_no',
+        'payment_id',               // <-- NEW
+        'payment_gateway_order_id', // <-- NEW
     ];
 
+    protected $casts = [
+        'total_amount' => 'decimal:2',
+    ];
+
+    // -----------------------------------------------------------------
+    // Relationships
+    // -----------------------------------------------------------------
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -32,16 +41,15 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
-    public function product()
+
+    // -----------------------------------------------------------------
+    // Helper
+    // -----------------------------------------------------------------
+    public function markAsPaid(string $gatewayTxId): void
     {
-        return $this->belongsTo(Product::class);
-    }
-    public function productSize()
-    {
-        return $this->belongsTo(ProductSize::class);
-    }
-    public function productDiscount()
-    {
-        return $this->belongsTo(ProductDiscount::class);
+        $this->update([
+            'payment_status' => 'paid',
+            'payment_id'     => $gatewayTxId,   // Razorpay payment_id
+        ]);
     }
 }

@@ -20,13 +20,13 @@
         <div class="w-full md:w-3/4 px-2 border border-gray-300">
             <ul class="flex border-b border-gray-200" id="myTab" role="tablist">
                 <li class="flex-1" role="presentation">
-                    <a class="block py-2 px-4 text-center {{ $tabOpen == 1 ? 'bg-gray-100 border-b-2 border-indigo-500' : 'text-gray-600 hover:bg-gray-100' }}" wire:click="tabOpn(1)" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Profile</a>
+                    <a class="block py-2 px-4 text-center {{ $tabOpen == 1 ? 'bg-gray-100 border-b-2 border-indigo-500' : 'text-gray-600 hover:bg-gray-100' }}" wire:click="tabOpn(1)" id="home-tab" data-toggle="tab" href="home" role="tab" aria-controls="home" aria-selected="true">Profile</a>
                 </li>
                 <li class="flex-1" role="presentation">
-                    <a class="block py-2 px-4 text-center {{ $tabOpen == 2 ? 'bg-gray-100 border-b-2 border-indigo-500' : 'text-gray-600 hover:bg-gray-100' }}" wire:click="tabOpn(2)" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Change Password</a>
+                    <a class="block py-2 px-4 text-center {{ $tabOpen == 2 ? 'bg-gray-100 border-b-2 border-indigo-500' : 'text-gray-600 hover:bg-gray-100' }}" wire:click="tabOpn(2)" id="profile-tab" data-toggle="tab" href="profile" role="tab" aria-controls="profile" aria-selected="false">Change Password</a>
                 </li>
                 <li class="flex-1" role="presentation">
-                    <a class="block py-2 px-4 text-center {{ $tabOpen == 3 ? 'bg-gray-100 border-b-2 border-indigo-500' : 'text-gray-600 hover:bg-gray-100' }}" wire:click="tabOpn(3)" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Addresses</a>
+                    <a class="block py-2 px-4 text-center {{ $tabOpen == 3 ? 'bg-gray-100 border-b-2 border-indigo-500' : 'text-gray-600 hover:bg-gray-100' }}" wire:click="tabOpn(3)" id="contact-tab" data-toggle="tab" href="contact" role="tab" aria-controls="contact" aria-selected="false">Addresses</a>
                 </li>
             </ul>
             <div class="my-3" id="myTabContent">

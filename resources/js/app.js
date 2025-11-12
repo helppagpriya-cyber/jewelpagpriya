@@ -1,3 +1,6 @@
+import './bootstrap';
+import '../../vendor/masmerise/livewire-toaster/resources/js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Helper function to toggle offcanvas
     const toggleOffcanvas = (id) => {
@@ -74,37 +77,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
                 },
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showSuccessAlert(data.message || 'Action completed successfully');
-                    // Remove the item from the DOM
-                    const itemId = form.closest('[id^="cart-item-"]')?.id || form.closest('.bg-white')?.id;
-                    if (itemId) {
-                        document.getElementById(itemId)?.remove();
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showSuccessAlert(data.message || 'Action completed successfully');
+                        // Remove the item from the DOM
+                        const itemId = form.closest('[id^="cart-item-"]')?.id || form.closest('.bg-white')?.id;
+                        if (itemId) {
+                            document.getElementById(itemId)?.remove();
+                        }
+                        // Refresh the page to update totals (or implement dynamic updates)
+                        setTimeout(() => location.reload(), 1000);
+                    } else {
+                        console.error('Error:', data.message);
                     }
-                    // Refresh the page to update totals (or implement dynamic updates)
-                    setTimeout(() => location.reload(), 1000);
-                } else {
-                    console.error('Error:', data.message);
-                }
-            })
-            .catch(error => console.error('Fetch error:', error));
+                })
+                .catch(error => console.error('Fetch error:', error));
         });
     });
 });
 
 // Function to show success alert
-function showSuccessAlert(message) {
-    const alert = document.getElementById('success-alert');
-    const messageSpan = document.getElementById('message');
-    if (alert && messageSpan) {
-        messageSpan.textContent = message;
-        alert.classList.remove('hidden');
-        setTimeout(() => {
-            alert.classList.add('hidden');
-        }, 5000); // Auto-close after 5 seconds
-    } else {
-        console.warn('Success alert elements not found');
-    }
-}
+// function showSuccessAlert(message) {
+//     const alert = document.getElementById('success-alert');
+//     const messageSpan = document.getElementById('message');
+//     if (alert && messageSpan) {
+//         messageSpan.textContent = message;
+//         alert.classList.remove('hidden');
+//         setTimeout(() => {
+//             alert.classList.add('hidden');
+//         }, 5000); // Auto-close after 5 seconds
+//     } else {
+//         console.warn('Success alert elements not found');
+//     }
+// }

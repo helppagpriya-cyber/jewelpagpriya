@@ -16,7 +16,8 @@
   @foreach($sliders as $slider)
   <div class="mySlides fade">
     <div class="numbertext hidden">{{ $slider->id }}</div>
-    <img src="{{ asset('storage/' . $slider->image) }}"  >
+    <a wire:navigate href="{{ url('/all-products') }}">
+    <img src="{{ asset('storage/' . $slider->image) }}"  ></a>
     <div class="text">{{ $slider->text }}</div>
   </div>
   @endforeach
@@ -93,7 +94,7 @@
     <div class="flex flex-wrap items-center justify-center gap-4 my-4">
         @foreach($latestProduct as $latest)
             <div class="w-[18rem] p-0 bg-white rounded-lg shadow-md">
-                <a href="{{ url('product/' . $latest->id) }}" class="no-underline text-gray-900 cursor-pointer">
+                <a wire:navigate href="{{ url('product/' . $latest->id) }}" class="no-underline text-gray-900 cursor-pointer">
                     <img src="{{ asset('storage/' . $latest->images[0]) }}" class="w-full h-[220px] object-cover rounded-t-lg" alt="Product image">
                 </a>
                 <div class="p-4">
@@ -110,13 +111,16 @@
                         </span>
                     </div>
                     <div class="flex items-center justify-between mt-2">
-                        <a href="{{ url('shop-now/' . $latest->id) }}" class="bg-[#5C3422] text-white text-sm px-4 py-2 rounded hover:bg-[#4a2b1b]">Shop Now</a>
+                        <a wire:navigate href="{{ url('shop-now/' . $latest->id) }}" class="bg-green-600 text-white text-sm px-4 py-2 rounded hover:bg-green-700">Shop Now</a>
                         <div>
-                            @if(in_array($latest->id, $wishlist))
+                            <div class="mt-3">
+    @livewire('product-wishlist', ['product' => $latest], key($latest->id))
+    </div>
+                            {{-- @if(in_array($latest->id, $wishlist))
                                 <i class="fa-solid fa-heart text-2xl text-red-500 heart cursor-pointer" data-product-id="{{ $latest->id }}"></i>
                             @else
                                 <i class="fa-regular fa-heart text-2xl text-red-500 heart cursor-pointer" data-product-id="{{ $latest->id }}"></i>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                 </div>
@@ -129,7 +133,7 @@
     <div class="flex flex-wrap items-center justify-center gap-4 my-4">
         @foreach($highlyRated as $rated)
             <div class="w-[18rem] p-0 bg-white rounded-lg shadow-md">
-                <a href="{{ url('product/' . $rated->product->id) }}" class="no-underline text-gray-900 cursor-pointer">
+                <a wire:navigate href="{{ url('product/' . $rated->product->id) }}" class="no-underline text-gray-900 cursor-pointer">
                     <img src="{{ asset('storage/' . $rated->product->images[0]) }}" class="w-full h-[220px] object-cover rounded-t-lg" alt="Product image">
                 </a>
                 <div class="p-4">
@@ -146,20 +150,18 @@
                         </span>
                     </div>
                     <div class="flex items-center justify-between mt-2">
-                        <a href="{{ url('shop-now/' . $rated->product->id) }}" class="bg-[#5C3422] text-white text-sm px-4 py-2 rounded hover:bg-[#4a2b1b]">Shop Now</a>
-                        <div>
-                            @if(in_array($rated->product->id, $wishlist))
-                                <i class="fa-solid fa-heart text-2xl text-red-500 heart cursor-pointer" data-product-id="{{ $rated->product->id }}"></i>
-                            @else
-                                <i class="fa-regular fa-heart text-2xl text-red-500 heart cursor-pointer" data-product-id="{{ $rated->product->id }}"></i>
-                            @endif
-                        </div>
+                        <a wire:navigate href="{{ url('shop-now/' . $rated->product->id) }}" class="bg-green-600 text-white text-sm px-4 py-2 rounded hover:bg-green-700">Shop Now</a>
+                        <div class="mt-3">
+    @livewire('product-wishlist', ['product' => $rated->product], key($rated->product->id))
+</div>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
+    @livewire('cart-component')
 </div>
+
 
 
 <script>

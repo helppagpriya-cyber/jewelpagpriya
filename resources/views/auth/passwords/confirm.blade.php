@@ -33,7 +33,7 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="mt-2 text-sm text-gray-900 hover:underline w-full text-center" href="{{ route('password.request') }}">
+                                    <a class="mt-2 text-sm text-gray-900 hover:underline w-full text-center" wire:navigate href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif

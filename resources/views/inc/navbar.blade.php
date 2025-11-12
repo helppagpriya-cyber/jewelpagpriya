@@ -1,27 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAGPRIYA by Ojas Jewel | Feel Luxury</title>
-    <!-- Vite for Tailwind CSS and JavaScript -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body class="antialiased">
-    <!-- Success Alert -->
-    <div class="fixed top-4 right-4 w-full max-w-sm z-50 hidden" id="success-alert">
-        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 flex justify-between items-center rounded-lg shadow-md">
-            <span id="message"></span>
-            <button type="button" class="text-green-700 hover:text-green-900" onclick="document.getElementById('success-alert').classList.add('hidden')" aria-label="Close alert">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </div>
 
     <!-- Header -->
-    <header>
         <!-- Jumbotron -->
         <div class="bg-white py-3 text-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,6 +11,7 @@
                         </a>
                     </div>
                     <!-- Empty Middle Section -->
+                    
                     
                     <!-- User Actions -->
                     <div class="flex justify-center md:justify-end w-full md:w-1/3 items-center">
@@ -48,17 +27,29 @@
                                     <a wire:navigate href="{{ route('register') }}" class="text-gray-700 hover:text-gray-900 font-medium">{{ __('Sign Up') }}</a>
                                 @endif
                             @else
-                                <div class="flex items-center space-x-4">
-                                    <a href="#wishlistcanvas" class="text-red-500 hover:text-red-700" data-toggle="wishlistcanvas" aria-label="View wishlist">
-                     
-                                        <i class="fas fa-heart"></i>
-                                    </a>
-                                    <a href="#cartcanvas" class="text-brand hover:text-gray-900" data-toggle="cartcanvas" aria-label="View cart">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </a>
-                                    <a href="#ordercanvas" class="text-brand hover:text-gray-900" data-toggle="ordercanvas" aria-label="View orders">
-                                        <i class="fa-solid fa-bag-shopping"></i>
-                                    </a>
+                                    
+                            <div class="flex items-center space-x-4">
+                                    <div class="flex items-center space-x-4">
+    <!-- Wishlist -->
+    <a href="#" class="text-red-500 hover:text-red-700" data-toggle="wishlistcanvas" aria-label="View wishlist">
+        <i class="fas fa-heart"></i>
+    </a>
+
+    <!-- Cart (with count, safe for guests) -->
+    <a href="#" class="relative text-brand hover:text-gray-900" data-toggle="cartcanvas" aria-label="View cart">
+        <i class="fas fa-shopping-cart"></i>
+        @if(auth()->check() && ($count = auth()->user()->carts()->count()) > 0)
+            <span class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs font-semibold text-white">
+                {{ $count }}
+            </span>
+        @endif
+    </a>
+
+    <!-- Orders -->
+    <a href="#" class="text-brand hover:text-gray-900" data-toggle="ordercanvas" aria-label="View orders">
+        <i class="fa-solid fa-bag-shopping"></i>
+    </a>
+</div>
                                     <div class="relative">
                                         <button class="text-gray-700 hover:text-gray-900 font-medium flex items-center" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                                             {{ Auth::user()->name }}
@@ -93,7 +84,7 @@
                         </button>
                         <ul class="hidden md:flex space-x-4">
                             <li><a wire:navigate href="/all-products" class="text-gray-700 hover:text-gray-900 font-medium">All Products</a></li>
-                            <li><a wire:navigate href="/categories" class="text-gray-700 hover:text-gray-900 font-medium">Categories</a></li>
+                            <li><a wire:navigate href="/categories" class="text-gray-700 hover:text-gray-900 font-medium">Shop by Category</a></li>
                             <li><a wire:navigate href="/women" class="text-gray-700 hover:text-gray-900 font-medium">Women</a></li>
                             <li><a wire:navigate href="/men" class="text-gray-700 hover:text-gray-900 font-medium">Men</a></li>
                         </ul>
@@ -183,7 +174,7 @@
         </div>
     </div>
 
-     <!--Whishlist Cawas -->
+     <!--Whishlist Canwas -->
 
        <div class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50" id="wishlistcanvas" aria-labelledby="wishlistcanvas-title">
         <div class="flex flex-col h-full">

@@ -29,47 +29,47 @@ class OrderResource extends Resource
             ->schema([
                 Section::make('User Details')
                     ->schema([
-                            Forms\Components\Select::make('user_id')
-                                ->required()
-                                ->label('User')
-                                ->placeholder('Select User')
-                                ->relationship('user','name')
-                                ->searchable()
-                                ->preload()
-                                ->reactive()
-                                ->native(false)
-                                ->options(function (callable $get) {
-                                    return User::all()->mapWithKeys(function ($user) {
+                        Forms\Components\Select::make('user_id')
+                            ->required()
+                            ->label('User')
+                            ->placeholder('Select User')
+                            ->relationship('user', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->reactive()
+                            ->native(false)
+                            ->options(function (callable $get) {
+                                return User::all()->mapWithKeys(function ($user) {
+                                    return [
+                                        $user->id => $user->name . ' : ' . $user->email
+                                    ];
+                                });
+                            })
+                            ->disabledOn('edit'),
+
+                        Forms\Components\Select::make('user_address_id')
+                            ->label('User Address')
+                            ->placeholder('Select Address')
+                            ->relationship('userAddress', 'address')
+                            ->options(function (callable $get) {
+                                $user_id = $get('user_id');
+                                if ($user_id) {
+                                    $user = User::find($user_id);
+                                    return $user->userAddresses()->get()->mapWithKeys(function ($userAddress) {
                                         return [
-                                            $user->id => $user->name . ' : ' . $user->email
+                                            $userAddress->id => strip_tags($userAddress->address) . ' - ' . $userAddress->city . ' - ' . $userAddress->pin
                                         ];
                                     });
-                                })
-                                ->disabledOn('edit'),
-
-                            Forms\Components\Select::make('user_address_id')
-                                ->label('User Address')
-                                ->placeholder('Select Address')
-                                ->relationship('userAddress','address')
-                                ->options(function (callable $get) {
-                                    $user_id = $get('user_id');
-                                    if ($user_id) {
-                                        $user = User::find($user_id);
-                                        return $user->userAddresses()->get()->mapWithKeys(function ($userAddress) {
-                                            return [
-                                                $userAddress->id => strip_tags($userAddress->address) . ' - ' . $userAddress->city . ' - ' . $userAddress->pin
-                                            ];
-                                        });
-                                    }
-                                    return [];
-                                })
-                                ->searchable()
-                                ->preload()
-                                ->reactive()
-                                ->required()
-                                ->afterStateUpdated(function ($state, callable $set) {
-                                    $set('user_address_id', $state);
-                                }),
+                                }
+                                return [];
+                            })
+                            ->searchable()
+                            ->preload()
+                            ->reactive()
+                            ->required()
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('user_address_id', $state);
+                            }),
                     ])
                     ->columns(2),
                 Section::make('Order Status')
@@ -111,7 +111,8 @@ class OrderResource extends Resource
                             ->native(false)
                             ->default('COD')
                             ->options([
-                                'COD' => 'COD'
+                                'COD' => 'COD',
+                                'ONLINE' => 'ONLINE PAYMENT'
                             ]),
                         Forms\Components\Select::make('payment_status')
                             ->required()
@@ -159,11 +160,12 @@ class OrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-//                Tables\Actions\BulkActionGroup::make([
-//                    Tables\Actions\DeleteBulkAction::make(),
-//                ]),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

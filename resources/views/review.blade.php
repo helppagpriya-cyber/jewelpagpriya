@@ -8,7 +8,7 @@
                 <div class="w-full md:w-1/3 px-2">
                     <div class="bg-white shadow-md rounded-lg mx-1 mb-1 p-1">
                         <div class="flex flex-wrap">
-                            <a href="{{ url('product/' . $product->id) }}" class="no-underline text-gray-900 flex w-full">
+                            <a wire:navigate href="{{ url('product/' . $product->id) }}" class="no-underline text-gray-900 flex w-full">
                                 <div class="w-5/12">
                                     <img src="{{ asset('storage/' . $product->images[0]) }}" class="w-full h-[150px] object-cover rounded" alt="Product image">
                                 </div>

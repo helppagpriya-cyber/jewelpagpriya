@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
+use Masmerise\Toaster\Toaster;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Gemstone;
@@ -14,20 +15,24 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class CartComponent extends Component
+
 {
     public $cart = [];
+    public $wishlist = [];
 
     public function mount()
     {
         // Initialize cart data
         $this->cart = Auth::check() ? Auth::user()->carts->toArray() : [];
+        $this->wishlist = Auth::check() ? Auth::user()->wishlists->toArray() : [];
     }
+
 
     public function removeFromCart($productId)
     {
         if (!Auth::check()) {
             $this->dispatch('show-alert', ['message' => 'Please log in to manage your cart']);
-            return;
+            return redirect()->route('login');
         }
 
         $cart = Auth::user()->carts()->where('product_id', $productId)->first();
@@ -45,7 +50,7 @@ class CartComponent extends Component
     {
         if (!Auth::check()) {
             $this->dispatch('show-alert', ['message' => 'Please log in to manage your wishlist']);
-            return;
+            return redirect()->route('login');
         }
 
         $wishlist = Auth::user()->wishlists()->where('product_id', $productId)->first();
@@ -62,7 +67,7 @@ class CartComponent extends Component
     {
         if (!Auth::check()) {
             $this->dispatch('show-alert', ['message' => 'Please log in to manage your cart']);
-            return;
+            return redirect()->route('login');
         }
 
         $cart = Auth::user()->carts()->where('product_id', $productId)->first();
@@ -78,6 +83,10 @@ class CartComponent extends Component
 
     public function render()
     {
-        return view('livewire.cart-component', ['cart' => $this->cart]);
+        return view('livewire.cart-component', [
+            'cart' => $this->cart,
+            'wishlist' => $this->wishlist,
+
+        ]);
     }
 }

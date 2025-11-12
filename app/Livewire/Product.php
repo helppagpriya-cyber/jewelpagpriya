@@ -4,12 +4,14 @@ namespace App\Livewire;
 
 use App\Models\Cart;
 use App\Models\ProductSize;
+
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Product extends Component
 {
-    public $productSizes, $size, $productSize = '', $product, $quantity=1;
+    public $productSizes, $size, $productSize = '', $product, $quantity = 1;
     public function mount($product)
     {
         $this->product = $product;
@@ -17,11 +19,11 @@ class Product extends Component
     }
     public function render()
     {
-        if($this->size)
+        if ($this->size)
             $this->productSize = ProductSize::find($this->size);
         else
             $this->productSize = $this->productSizes[0];
-        return view('livewire.product',['productSizes'=>$this->productSizes,'productSize'=>$this->productSize]);
+        return view('livewire.product', ['productSizes' => $this->productSizes, 'productSize' => $this->productSize]);
     }
 
     public function setSize($size)
@@ -37,19 +39,26 @@ class Product extends Component
                 ->first();
 
             if ($existingCart) {
+
+                Notification::make()
+                    ->success()
+                    ->title('Warning! This Product is already in your cart.')
+                    ->send();
                 session()->flash('warning', 'This product is already in your cart.');
-            }
-            else {
+            } else {
                 Auth::user()->carts()->create([
                     'product_id' => $this->product->id,
                     'product_size_id' => $this->productSize->id,
                     'quantity' => $this->quantity
                 ]);
+                Notification::make()
+                    ->success()
+                    ->title('Product added to cart successfully!')
+                    ->send();
                 session()->flash('success', 'Product added to cart successfully!');
             }
         } else {
             return redirect('login');
         }
     }
-
 }

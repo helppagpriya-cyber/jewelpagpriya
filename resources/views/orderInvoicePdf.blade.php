@@ -18,7 +18,7 @@
                 <span class="block mb-1">Invoice Id: #ORD{{ $order->id }}</span>
                 <span class="block mb-1">Date: {{ date('d / m / Y') }}</span>
                 <span class="block mb-1">Pin code: 360001</span>
-                <span class="block mb-1">Address: "PAGPRIYA by Ojas Jewel Jewellers", 125, Subhash Nagar,<br> Near Jubilee Garden, Rajkot, Gujarat</span>
+                <span class="block mb-1">Address: "PAGPRIYA by Ojas Jewel", 3013/15-A, First Floor, Gali No. 19 Ranjeet Nagar,<br> Patel Nagar, New Delhi, Delhi-110008</span>
             </th>
         </tr>
         <tr class="bg-[#5C3422] text-white">
@@ -116,7 +116,7 @@
     </table>
 
     <p class="text-center mt-4">
-        Thank you for shopping with PAGPRIYA by Ojas Jewel
+        Thank you for shopping with PAGPRIYA by Ojas Jewel.
     </p>
 </div>
 </body>
