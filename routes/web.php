@@ -14,8 +14,8 @@ Route::get('/payment/{order}', CheckoutPayment::class)
 Route::post('/checkout/callback', [PaymentController::class, 'handleCallback'])
     ->name('checkout.callback')->middleware('auth');
 Route::get('/orders', function () {
-    return view('orders.index'); // or Livewire component
-})->name('orders.index');
+    return view('orders-index'); // or Livewire component
+})->name('orders-index');
 Auth::routes();
 //Route::get('/', \App\Livewire\IndexPage::class)->name('home');
 

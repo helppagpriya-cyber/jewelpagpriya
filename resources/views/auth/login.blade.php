@@ -1,6 +1,6 @@
 @extends('layout.app')
-
 @section('content')
+
 <div class="container mx-auto my-8 px-4 sm:px-6 lg:px-8 min-h-screen">
     <div class="flex justify-center">
         <div class="w-full max-w-md">
@@ -43,7 +43,9 @@
                             <div class="flex flex-col items-center">
                                 <button type="submit" class="w-full px-5 py-2 text-white rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-800 focus:ring-offset-2 bg-pink-400">
                                     {{ __('Sign In') }}
+                                
                                 </button>
+                                
 
                                 @if (Route::has('password.request'))
                                     <a wire:navigate class="mt-2 text-sm text-blue-900 hover:underline w-full text-right" href="{{ route('password.request') }}">

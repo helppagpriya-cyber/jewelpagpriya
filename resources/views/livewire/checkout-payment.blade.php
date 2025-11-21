@@ -74,7 +74,7 @@
 
         @this.on('paymentCompleted', () => {
             alert('Payment successful!');
-            window.location.href = '{{ route("orders.index") }}';
+            window.location.href = '{{ route("orders-index") }}';
         });
 
         @this.on('paymentFailed', () => {
@@ -84,7 +84,7 @@
     @this.on('paymentCompleted', () => {
     alert('Payment successful! Redirecting...');
     setTimeout(() => {
-        window.location.href = '{{ route("orders.index") }}';
+        window.location.href = '{{ route("orders-index") }}';
     }, 1000);
     });
 </script>
