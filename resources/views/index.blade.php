@@ -10,8 +10,9 @@
             </button>
         </div>
     @endif
+<livewire:hero-slider/>
 
-<div class="slideshow-container h-[450px] overflow-hidden">
+{{-- <div class="slideshow-container h-[450px] overflow-hidden">
      <!-- Full-width images with number and caption text -->
   @foreach($sliders as $slider)
   <div class="mySlides fade">
@@ -33,7 +34,7 @@
   @foreach($sliders as $slider)
     <span class="dot" onclick="currentSlide{{ $slider->id }}"></span>
   @endforeach
-</div>
+</div> --}}
 
 {{-- static data --}}
 <div class="container mx-auto">
