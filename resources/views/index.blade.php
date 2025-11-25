@@ -10,7 +10,7 @@
             </button>
         </div>
     @endif
-<livewire:hero-slider/>
+<livewire:heroslider/>
 
 {{-- static data --}}
 <div class="container mx-auto">
