@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PaymentController;
 use App\Livewire\CheckoutPayment;
+use App\Livewire\PolicyPage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,8 @@ Route::get('/orders', function () {
     return view('orders-index'); // or Livewire component
 })->name('orders-index');
 Auth::routes();
+Route::get('/policy/{slug}', PolicyPage::class)->name('policy.show');
+
 //Route::get('/', \App\Livewire\IndexPage::class)->name('home');
 
 Route::controller(\App\Http\Controllers\IndexController::class)->group(function () {

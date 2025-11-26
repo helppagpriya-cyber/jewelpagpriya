@@ -14,9 +14,9 @@
                 <h2 class="text-lg font-semibold mb-2">Categories</h2>
                  <div class="flex flex-wrap gap-2">
                 <ul class="space-y-2">
-                    <li class="bg-white text-black px-2 py-1 rounded text-sm hover:bg-green-400"><a wire:navigate href="{{ url('subcategory/1') }}" >Rings</a></li>
-                    <li class="bg-white text-black px-2 py-1 rounded text-sm hover:bg-green-400"><a wire:navigate href="{{ url('subcategory/6') }}" >Necklace</a></li>
-                    <li class="bg-white text-black px-2 py-1 rounded text-sm hover:bg-green-400"><a wire:navigate href="{{ url('subcategory/4') }}" >Earings</a></li>
+                    <li class="text-sm hover:underline"><a wire:navigate href="{{ url('subcategory/1') }}" >Rings</a></li>
+                    <li class="text-sm hover:underline"><a wire:navigate href="{{ url('subcategory/6') }}" >Necklace</a></li>
+                    <li class="text-sm hover:underline"><a wire:navigate href="{{ url('subcategory/4') }}" >Earings</a></li>
                 </ul>
                 </div>
             </div>
@@ -25,22 +25,27 @@
                 <h2 class="text-lg font-semibold mb-2">Occasions</h2>
                 <div class="flex flex-wrap gap-2">
                     <ul>
-                    <li class="bg-white text-black px-2 py-1 rounded text-sm mb-2">Wedding</li>
-                    <li class="bg-white text-black px-2 py-1 rounded text-sm mb-2">Engagement</li>
-                    <li class="bg-white text-black px-2 py-1 rounded text-sm mb-2">Regular Wear</li>
-                    <li class="bg-white text-black px-2 py-1 rounded text-sm mb-2">Festival</li>
+                    <li class="text-sm mb-2">Wedding</li>
+                    <li class="text-sm mb-2">Engagement</li>
+                    <li class="text-sm mb-2">Regular Wear</li>
+                    <li class="text-sm mb-2">Festival</li>
                     </ul>
                 </div>
             </div>
-
-            <div class="h-48">
-                <iframe src=""
-                    class="w-full h-full border border-white rounded"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
+            <div class="mt-4 md:mt-0">
+            <h4 class="font-bold mb-2">Policies</h4>
+            <ul class="space-y-1 text-sm">
+                @foreach(\App\Models\Policy::all() as $policy)
+                    <li>
+                        <a href="{{ route('policy.show', $policy->slug) }}" 
+                           class="hover:underline">
+                           {{ $policy->title }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+            
         </div>
     </div>
     <div class="text-sm mt-4 border">
