@@ -5,7 +5,7 @@
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <!-- Logo -->
                 <div class="flex justify-center md:justify-start w-full md:w-1/3 mb-3 md:mb-0">
-                    <a href="/" class="ml-0 md:ml-2">
+                    <a wire:navigate href="/" class="ml-0 md:ml-2">
                         <img src="{{ asset('image/dark-logo.png') }}" alt="PAGPRIYA by Ojas Jewel Logo" class="h-6">
                     </a>
                 </div>
@@ -19,7 +19,7 @@
 
                         @guest
                             @if (Route::has('login'))
-                                <a wire:navigate href="{{ route('login') }}" class="text-gray-700 hover:text-gray-900 font-medium">{{ __('Sign In') }}</a>
+                                <a wire:navigate href="{{ route('login') }}" class="text-gray-700 hover:text-gray-900 font-medium"></i>{{ __('Sign In') }}</a>
                             @endif
                             @if (Route::has('register'))
                                 <a wire:navigate href="{{ route('register') }}" class="text-gray-700 hover:text-gray-900 font-medium">{{ __('Sign Up') }}</a>
