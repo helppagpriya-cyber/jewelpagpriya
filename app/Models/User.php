@@ -75,4 +75,19 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Order::class);
     }
+
+    public function isVendor(): bool
+    {
+        return (int)$this->role === 2;
+    }
+
+    public function vendorOrders()
+    {
+        return $this->hasMany(VendorOrder::class, 'user_id');
+    }
+
+    public function vendorPayments()
+    {
+        return $this->hasMany(VendorPayment::class);
+    }
 }

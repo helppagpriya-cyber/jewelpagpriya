@@ -79,6 +79,7 @@
                         <li><a wire:navigate href="/categories" class="text-gray-700 hover:text-gray-900 font-medium">Shop by Category</a></li>
                         <li><a wire:navigate href="/women" class="text-gray-700 hover:text-gray-900 font-medium">Women</a></li>
                         <li><a wire:navigate href="/men" class="text-gray-700 hover:text-gray-900 font-medium">Men</a></li>
+                        
                     </ul>
                 </div>
 

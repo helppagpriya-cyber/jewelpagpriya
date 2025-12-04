@@ -12,6 +12,10 @@
     @endif
 <livewire:heroslider/>
 
+<livewire:vendor.product-list/>
+<livewire:vendor.cart/>
+
+
 {{-- static data --}}
 <div class="container mx-auto">
     <div class="flex flex-wrap mt-3 -mx-2">

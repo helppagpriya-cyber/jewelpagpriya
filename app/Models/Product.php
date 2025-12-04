@@ -67,4 +67,9 @@ class Product extends Model
     {
         return asset('storage/public/' . $value);
     }
+
+    public function vendororderItems()
+    {
+        return $this->hasMany(VendorOrderItem::class);
+    }
 }

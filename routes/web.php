@@ -1,12 +1,24 @@
 <?php
 
 use App\Http\Controllers\PaymentController;
+
+use App\Livewire\Vendor\ProductList;
+use App\Livewire\Vendor\Cart;
+use App\Livewire\Vendor\OrderList;
 use App\Livewire\CheckoutPayment;
 use App\Livewire\PolicyPage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route as RouteFacade;
+
+Route::middleware(['auth', 'vendor'])->prefix('vendor')->group(function () {
+
+    Route::get('/products', ProductList::class)->name('vendor.products');
+    Route::get('/cart', Cart::class)->name('vendor.cart');
+    Route::get('/orders', OrderList::class)->name('vendor.orders');
+});
+
 
 
 Route::get('/payment/{order}', CheckoutPayment::class)
