@@ -12,8 +12,6 @@
     @endif
 <livewire:heroslider/>
 
-<livewire:vendor.product-list/>
-<livewire:vendor.cart/>
 
 
 {{-- static data --}}

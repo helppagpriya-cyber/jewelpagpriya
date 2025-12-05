@@ -1,4 +1,4 @@
-<div>
+
    <div class="p-4">
 
     <h2 class="text-xl font-bold mb-4">Vendor Cart</h2>
@@ -62,5 +62,4 @@
         </button>
     </div>
 
-</div>
 </div>

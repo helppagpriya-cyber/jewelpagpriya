@@ -2,11 +2,6 @@
    <div class="p-4">
 
     <h2 class="text-xl font-bold mb-3">Select Products</h2>
-    <div class="flex justify-end mb-3">
-    <a wire:navigate href="{{ route('vendor.cart') }}"
-       class="bg-green-600 text-white px-4 py-2 rounded">
-        Go To Cart
-    </a>
     {{-- Filters --}}
     <div class="grid grid-cols-4 gap-3 mb-4">
 
@@ -60,13 +55,19 @@
                     class="bg-green-600 text-white px-3 py-1 rounded mt-3">
                 Add to Cart
             </button>
-
+            
         </div>
         @endforeach
             
 </div>
 
     </div>
+    <div class="flex justify-end mb-3 px-4">
+    <a wire:navigate href="{{ route('vendor.cart') }}"
+       class="bg-green-600 text-white px-4 py-2 rounded">
+        Go To Cart
+    </a>
+    
 
     <div class="mt-4">
         {{ $products->links() }}

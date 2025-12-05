@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route as RouteFacade;
 
-Route::middleware(['auth', 'vendor'])->prefix('vendor')->group(function () {
 
-    Route::get('/products', ProductList::class)->name('vendor.products');
-    Route::get('/cart', Cart::class)->name('vendor.cart');
-    Route::get('/orders', OrderList::class)->name('vendor.orders');
-});
+Route::get('/vendorproducts', ProductList::class)->name('vendor.products')->middleware('auth');
+Route::get('/vendorcart', Cart::class)->name('vendor.cart')->middleware('auth');
+Route::get('/vendororders', OrderList::class)->name('vendor.orders')->middleware('auth');
+
 
 
 

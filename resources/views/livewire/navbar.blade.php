@@ -66,6 +66,7 @@
     </div>
 
     <!-- Navbar -->
+   
     <nav class="bg-pink-200 shadow-sm sticky top-0 z-40 text-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-3">
@@ -73,14 +74,24 @@
                     <button id="menu-toggle" class="md:hidden text-gray-700 hover:text-gray-900" aria-label="Toggle navigation">
                         <i class="fas fa-bars"></i>
                     </button>
-
+                     @if(Auth::user())
+                     @if(Auth::user()->isVendor())
+                     <ul class="hidden md:flex space-x-4">
+                        <li><a wire:navigate href="/vendorproducts" class="text-gray-700 hover:text-gray-900 font-medium">Products</a></li>
+                        <li><a wire:navigate href="/vendorcart" class="text-gray-700 hover:text-gray-900 font-medium">Vendor Cart</a></li>
+                     @endif                       
+                    </ul>
+                    @else
+                    
                     <ul class="hidden md:flex space-x-4">
                         <li><a wire:navigate href="/all-products" class="text-gray-700 hover:text-gray-900 font-medium">All Products</a></li>
                         <li><a wire:navigate href="/categories" class="text-gray-700 hover:text-gray-900 font-medium">Shop by Category</a></li>
                         <li><a wire:navigate href="/women" class="text-gray-700 hover:text-gray-900 font-medium">Women</a></li>
                         <li><a wire:navigate href="/men" class="text-gray-700 hover:text-gray-900 font-medium">Men</a></li>
-                        
                     </ul>
+                    @endif
+                    
+                    
                 </div>
 
                 <div class="flex items-center space-x-2">
