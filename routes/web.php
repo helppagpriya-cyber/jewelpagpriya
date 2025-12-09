@@ -9,6 +9,7 @@ use App\Livewire\Vendor\ProductList;
 use App\Livewire\Vendor\Cart;
 use App\Livewire\Vendor\OrderList;
 use App\Livewire\CheckoutPayment;
+use App\Livewire\IndexPage;
 use App\Livewire\PolicyPage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,10 @@ Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('register');
 Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
 Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
-Route::get('/', \App\Livewire\IndexPage::class)->name('home');
+//Route::get('/', IndexPage::class)->name('home');
+
+
+
 
 Route::get('/payment/{order}', CheckoutPayment::class)
     ->name('checkout.payment')
@@ -35,14 +39,9 @@ Route::get('/orders', function () {
 })->name('orders-index');
 Auth::routes();
 Route::get('/policy/{slug}', PolicyPage::class)->name('policy.show');
-Route::get('/login', Login::class)->name('login');
-Route::get('/register', Register::class)->name('register');
-Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
-Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
-Route::get('/', \App\Livewire\IndexPage::class)->name('home');
 
 Route::controller(\App\Http\Controllers\IndexController::class)->group(function () {
-    //Route::get('/', 'index');
+    Route::get('/', 'index');
     Route::get('all-products', 'allProducts');
     Route::get('women', 'women');
     Route::get('men', 'men');
