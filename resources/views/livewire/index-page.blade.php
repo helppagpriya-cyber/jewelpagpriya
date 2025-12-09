@@ -1,7 +1,6 @@
-@extends('layout.app')
 
-@section('content')
 <div>
+@livewire('cart-component')
     {{-- ALL YOUR EXISTING CODE BELOW --}}
 
     {{-- Session Success Message --}}
@@ -165,7 +164,7 @@
             @endforeach
         </div>
 
-        @livewire('cart-component')
+        
     </div>
 
     <script>
@@ -185,4 +184,3 @@
         }
     </script>
 </div>
-@endsection

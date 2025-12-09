@@ -9,17 +9,21 @@
 
         <title>{{ $title ?? 'PAGPRIYA' }}</title>
         @livewireStyles
+        @livewireStyles
+    <!-- Alpine JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     
-    {{-- @include('../inc.navbar') --}}
-
+  
     <body class="antialiased">
-        @livewire('navbar')
-        <main>
-            @yield('content')
-            {{-- {{ $slot }} --}}
-        </main>
+        <div wire:ignore>
+        <div x-data>
+            @livewire('navbar')
+        </div>
+    </div>
+           @yield('content')
+            
     @livewire('wishlist-canvas')
     @livewire('cart-canvas')
     @livewire('orders-canvas')      
@@ -27,6 +31,11 @@
         
         @livewireScripts
          <x-toaster-hub />
+         <script>
+        document.addEventListener('livewire:navigated', () => {
+            Alpine.initTree(document.body);
+        });
+    </script>
     </body>
 </html>
  

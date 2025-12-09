@@ -13,46 +13,55 @@
                 <!-- User Actions -->
                 <div class="flex justify-center md:justify-end w-full md:w-1/3 items-center">
                     <div class="flex items-center space-x-4">
-                        <a wire:navigate href="{{ url('/search') }}" class="text-gray-700 hover:text-gray-900" aria-label="Search products">
+                        <a wire:navigate href="{{ url('/search') }}" class="text-gray-700 hover:text-gray-900"
+                            aria-label="Search products">
                             <i class="fas fa-search text-brand"></i>
                         </a>
 
                         @guest
                             @if (Route::has('login'))
-                                <a wire:navigate href="{{ route('login') }}" class="text-gray-700 hover:text-gray-900 font-medium"></i>{{ __('Sign In') }}</a>
+                                <a wire:navigate href="{{ route('login') }}"
+                                    class="text-gray-700 hover:text-gray-900 font-medium"></i>{{ __('Sign In') }}</a>
                             @endif
                             @if (Route::has('register'))
-                                <a wire:navigate href="{{ route('register') }}" class="text-gray-700 hover:text-gray-900 font-medium">{{ __('Sign Up') }}</a>
+                                <a wire:navigate href="{{ route('register') }}"
+                                    class="text-gray-700 hover:text-gray-900 font-medium">{{ __('Sign Up') }}</a>
                             @endif
                         @else
                             <div class="flex items-center space-x-4">
-                                <a href="" class="text-red-500 hover:text-red-700" data-toggle="wishlistcanvas" aria-label="View wishlist">
+                                <a href="" class="text-red-500 hover:text-red-700" data-toggle="wishlistcanvas"
+                                    aria-label="View wishlist">
                                     <i class="fas fa-heart"></i>
                                 </a>
 
-                                <a href="" class="text-brand hover:text-gray-900" data-toggle="cartcanvas" aria-label="View cart">
+                                <a href="" class="text-brand hover:text-gray-900" data-toggle="cartcanvas"
+                                    aria-label="View cart">
                                     <i class="fas fa-shopping-cart"></i>
                                 </a>
 
-                                <a href="" class="text-brand hover:text-gray-900" data-toggle="ordercanvas" aria-label="View orders">
+                                <a href="" class="text-brand hover:text-gray-900" data-toggle="ordercanvas"
+                                    aria-label="View orders">
                                     <i class="fa-solid fa-bag-shopping"></i>
                                 </a>
 
                                 <div class="relative">
                                     <button class="text-gray-700 hover:text-gray-900 font-medium flex items-center"
-                                            id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                        id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                                         {{ Auth::user()->name }}
                                         <i class="fas fa-chevron-down ml-1"></i>
                                     </button>
 
                                     <div class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50"
-                                         id="dropdown-menu">
-                                        <a wire:navigate href="{{ url('/profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">{{ __('Profile') }}</a>
-                                        <a wire:navigate href="{{ route('logout') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        id="dropdown-menu">
+                                        <a wire:navigate href="{{ url('/profile') }}"
+                                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100">{{ __('Profile') }}</a>
+                                        <a wire:navigate href="{{ route('logout') }}"
+                                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             {{ __('Sign Out') }}
                                         </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="hidden">
                                             @csrf
                                         </form>
                                     </div>
@@ -66,32 +75,49 @@
     </div>
 
     <!-- Navbar -->
-   
+
     <nav class="bg-pink-200 shadow-sm sticky top-0 z-40 text-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-3">
                 <div class="flex items-center">
-                    <button id="menu-toggle" class="md:hidden text-gray-700 hover:text-gray-900" aria-label="Toggle navigation">
+                    <button id="menu-toggle" class="md:hidden text-gray-700 hover:text-gray-900"
+                        aria-label="Toggle navigation">
                         <i class="fas fa-bars"></i>
                     </button>
-                     @if(Auth::user())
-                     @if(Auth::user()->isVendor())
-                     <ul class="hidden md:flex space-x-4">
-                        <li><a wire:navigate href="/vendorproducts" class="text-gray-700 hover:text-gray-900 font-medium">Products</a></li>
-                        <li><a wire:navigate href="/vendorcart" class="text-gray-700 hover:text-gray-900 font-medium">Vendor Cart</a></li>
-                     @endif                       
+                    <ul class="hidden md:flex space-x-6">
+
+                        @auth
+                            @if (Auth::user()->isVendor())
+                                <!-- Vendor Only Menu -->
+                                <li><a wire:navigate href="/vendorproducts"
+                                        class="text-gray-700 hover:text-gray-900 font-medium">Products</a></li>
+                                <li><a wire:navigate href="/vendorcart"
+                                        class="text-gray-700 hover:text-gray-900 font-medium">Vendor Cart</a></li>
+                            @else
+                                <!-- Regular Customer Menu (logged in or guest) -->
+                                <li><a wire:navigate href="/all-products"
+                                        class="text-gray-700 hover:text-gray-900 font-medium">All Products</a></li>
+                                <li><a wire:navigate href="/categories"
+                                        class="text-gray-700 hover:text-gray-900 font-medium">Shop by Category</a></li>
+                                <li><a wire:navigate href="/women"
+                                        class="text-gray-700 hover:text-gray-900 font-medium">Women</a></li>
+                                <li><a wire:navigate href="/men"
+                                        class="text-gray-700 hover:text-gray-900 font-medium">Men</a></li>
+                            @endif
+                        @else
+                            <!-- Guest (not logged in) – same as regular customer -->
+                            <li><a wire:navigate href="/all-products"
+                                    class="text-gray-700 hover:text-gray-900 font-medium">All Products</a></li>
+                            <li><a wire:navigate href="/categories"
+                                    class="text-gray-700 hover:text-gray-900 font-medium">Shop by Category</a></li>
+                            <li><a wire:navigate href="/women"
+                                    class="text-gray-700 hover:text-gray-900 font-medium">Women</a></li>
+                            <li><a wire:navigate href="/men"
+                                    class="text-gray-700 hover:text-gray-900 font-medium">Men</a></li>
+                        @endauth
+
                     </ul>
-                    @else
-                    
-                    <ul class="hidden md:flex space-x-4">
-                        <li><a wire:navigate href="/all-products" class="text-gray-700 hover:text-gray-900 font-medium">All Products</a></li>
-                        <li><a wire:navigate href="/categories" class="text-gray-700 hover:text-gray-900 font-medium">Shop by Category</a></li>
-                        <li><a wire:navigate href="/women" class="text-gray-700 hover:text-gray-900 font-medium">Women</a></li>
-                        <li><a wire:navigate href="/men" class="text-gray-700 hover:text-gray-900 font-medium">Men</a></li>
-                    </ul>
-                    @endif
-                    
-                    
+
                 </div>
 
                 <div class="flex items-center space-x-2">
@@ -104,11 +130,27 @@
 
             <!-- Mobile Menu -->
             <div class="hidden md:hidden" id="mobile-menu">
-                <ul class="flex flex-col space-y-2 p-4 bg-gray-50">
-                    <li><a wire:navigate href="/all-products" class="text-gray-700 hover:text-gray-900 font-medium">All Products</a></li>
-                    <li><a wire:navigate href="/categories" class="text-gray-700 hover:text-gray-900 font-medium">Categories</a></li>
-                    <li><a wire:navigate href="/women" class="text-gray-700 hover:text-gray-900 font-medium">Women</a></li>
-                    <li><a wire:navigate href="/men" class="text-gray-700 hover:text-gray-900 font-medium">Men</a></li>
+                <ul class="flex flex-col space-y-3 p-4 bg-gray-50">
+
+                    @auth
+                        @if (Auth::user()->isVendor())
+                            <li><a wire:navigate href="/vendorproducts"
+                                    class="text-gray-700 hover:text-gray-900 font-medium">Products</a></li>
+                            <li><a wire:navigate href="/vendorcart"
+                                    class="text-gray-700 hover:text-gray-900 font-medium">Vendor Cart</a></li>
+                        @else
+                            <li><a wire:navigate href="/all-products">All Products</a></li>
+                            <li><a wire:navigate href="/categories">Shop by Category</a></li>
+                            <li><a wire:navigate href="/women">Women</a></li>
+                            <li><a wire:navigate href="/men">Men</a></li>
+                        @endif
+                    @else
+                        <li><a wire:navigate href="/all-products">All Products</a></li>
+                        <li><a wire:navigate href="/categories">Shop by Category</a></li>
+                        <li><a wire:navigate href="/women">Women</a></li>
+                        <li><a wire:navigate href="/men">Men</a></li>
+                    @endauth
+
                 </ul>
             </div>
         </div>
