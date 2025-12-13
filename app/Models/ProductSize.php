@@ -20,4 +20,8 @@ class ProductSize extends Model
         'making_charges',
         'gst'
     ];
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

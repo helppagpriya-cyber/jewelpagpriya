@@ -8,79 +8,128 @@ use Livewire\WithPagination;
 use App\Models\Product;
 use App\Models\ProductSize;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class ProductList extends Component
 {
     use WithPagination;
 
-    public $category = [];
-    public $minWeight = '';
-    public $maxWeight = '';
-    public $search = '';
-    public $productsize = [];
-
-    public $quantity = []; // per product qty input
-
-    protected $queryString = [
-        'category',
-        'minWeight',
-        'maxWeight',
-        'search',
-    ];
+    public $products;
+    public $selected = []; // [product_id => quantity]
+    public $mode = 'amount'; // 'amount' or 'metal'
+    public $minWeight = 100; // grams
+    public $maxWeight = 10000; // grams
+    public $silverRate = 200; // ₹ per gram
+    public $labourRate = 65; // ₹ per gram
 
     public function mount()
     {
-        $this->category = Category::where('status', 1)->get();
-        $this->productsize = ProductSize::all();
+        $this->products = Product::where('status', 1)
+            ->with('productSize') // Ensure relation name matches your model
+            ->get();
+
+        // Prefill quantities with 1 for each product
+        foreach ($this->products as $product) {
+            $this->selected[$product->id] = 1;
+        }
+
+        // Restore mode from session if exists
+        $this->mode = Session::get('wholesale_mode', 'amount');
     }
-    public function updating($name)
+
+    public function updatedSelected($quantity, $productId)
     {
-        $this->resetPage();
+        if ($quantity < 1) {
+            unset($this->selected[$productId]);
+        }
     }
 
-    public function addToCart($productId)
+    public function toggleMode()
     {
-        $product = Product::findOrFail($productId);
+        $this->mode = $this->mode === 'amount' ? 'metal' : 'amount';
+        Session::put('wholesale_mode', $this->mode);
+    }
 
-        // SAFE quantity handling
-        $qty = isset($this->quantity[$productId]) && $this->quantity[$productId] > 0
-            ? (int) $this->quantity[$productId]
-            : 1;
+    public function addToCart()
+    {
+        $totalWeight = 0;
+        $items = [];
 
-        $cart = session()->get('vendor_cart', []);
+        foreach ($this->selected as $productId => $quantity) {
+            if ($quantity < 1) continue;
 
-        if (isset($cart[$productId])) {
-            // Always ensure quantity key exists
-            $cart[$productId]['quantity'] =
-                ($cart[$productId]['quantity'] ?? 1) + $qty;
-        } else {
-            $cart[$productId] = [
-                'product_id'     => $productId,
-                'name'           => $product->name,
-                'weight'         => $product->metal_weight,
-                'rate'           => $product->price_per_gram ?? 0,
-                'making_charges' => $product->making_charges ?? 0,
-                'quantity'       => $qty ?? 1, // ✅ CRITICAL FIX
-                'image'          => $product->images[0] ?? null,
+            $product = $this->products->find($productId);
+            $productSize = $product->productSize->first();
+
+            if (!$product || !$productSize || $quantity > $productSize->stock) {
+                $this->addError('selected', "Insufficient stock for {$product?->name}");
+                return;
+            }
+
+            $itemWeight = $productSize->metal_weight * $quantity;
+            $totalWeight += $itemWeight;
+
+            $subtotal = $this->mode === 'amount'
+                ? (($this->silverRate + $this->labourRate) * $productSize->metal_weight) * $quantity
+                : 0;
+
+            $items[] = [
+                'product_id' => $product->id,
+                'name' => $product->name,
+                'image' => $product->images[0] ?? null,
+                'weight_per_unit' => $productSize->metal_weight,
+                'quantity' => $quantity,
+                'item_total_weight' => $itemWeight,
+                'labour_rate' => $this->labourRate,
+                'silver_rate' => $this->silverRate,
+                'subtotal' => $subtotal,
             ];
         }
 
-        session()->put('vendor_cart', $cart);
+        if ($totalWeight < $this->minWeight) {
+            $this->addError('weight', "Minimum Order weight is {$this->minWeight} grams.");
+            return;
+        }
 
+        if ($totalWeight > $this->maxWeight) {
+            $this->addError('weight', "Maximum Order weight is {$this->maxWeight} grams.");
+            return;
+        }
 
-        $this->dispatch('cart-added', name: $product->name);
+        // Merge with existing cart
+        $cart = Session::get('wholesale_cart', []);
+        $cart['mode'] = $this->mode;
+        $cart['total_weight'] = ($cart['total_weight'] ?? 0) + $totalWeight;
+        $cart['items'] = array_merge($cart['items'] ?? [], $items);
+
+        Session::put('wholesale_cart', $cart);
+
+        $this->selected = [];
+        $this->dispatch('cart-updated');
+        $this->dispatch('notify', message: 'Items added to cart!', type: 'success');
+
+        return redirect()->route('vendor.vendorcart');
+    }
+
+    public function getTotalAmountProperty()
+    {
+        $total = 0;
+
+        foreach ($this->products as $product) {
+            $quantity = $this->selected[$product->id] ?? 0;
+            if ($quantity < 1) continue;
+
+            $productSize = $product->productSize->first();
+            if ($productSize && $this->mode === 'amount') {
+                $total += (($this->silverRate + $this->labourRate) * $productSize->metal_weight) * $quantity;
+            }
+        }
+
+        return $total;
     }
 
     public function render()
     {
-        $products = Product::query()
-            //->when($this->category, fn($q) => $q->where('category_id', $this->category))
-            ->when($this->minWeight, fn($q) => $q->where('weight', '>=', $this->minWeight))
-            ->when($this->maxWeight, fn($q) => $q->where('weight', '<=', $this->maxWeight))
-            ->when($this->search, fn($q) => $q->where('name', 'like', '%' . $this->search . '%'))
-            ->paginate(20);
-
-
-        return view('livewire.vendor.product-list', compact('products'));
+        return view('livewire.vendor.product-list');
     }
 }
