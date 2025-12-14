@@ -20,11 +20,12 @@ use Illuminate\Support\Facades\Route as RouteFacade;
 Route::get('/vendorproducts', ProductList::class)->name('vendor.products')->middleware('auth');
 Route::get('/vendorcart', Cart::class)->name('vendor.cart')->middleware('auth');
 Route::get('/vendororders', OrderList::class)->name('vendor.orders')->middleware('auth');
-Route::get('/login', Login::class)->name('login');
-Route::get('/register', Register::class)->name('register');
-Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
-Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
-//Route::get('/', IndexPage::class)->name('home');
+
+// Route::get('/login', Login::class)->name('login');
+// Route::get('/register', Register::class)->name('register');
+// Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
+// Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
+// Route::get('/', IndexPage::class)->name('home');
 
 
 
