@@ -28,7 +28,7 @@ class Product extends Model
         'images' => 'array'
     ];
 
-    public function productSizes()
+    public function productSize()
     {
         return $this->hasMany(ProductSize::class);
     }

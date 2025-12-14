@@ -34,14 +34,14 @@ class ProductResource extends Resource
                             Forms\Components\Select::make('metal_id')
                                 ->label('Metal')
                                 ->placeholder('Select Metal')
-                                ->relationship('metal','name')
+                                ->relationship('metal', 'name')
                                 ->searchable()
                                 ->preload()
                                 ->native(false),
                             Forms\Components\Select::make('category_id')
                                 ->label('Category')
                                 ->placeholder('Select category')
-                                ->relationship('category', 'name', function($query) {
+                                ->relationship('category', 'name', function ($query) {
                                     $query->whereNotNull('category_id');
                                 })
                                 ->searchable()
@@ -50,14 +50,14 @@ class ProductResource extends Resource
                             Forms\Components\Select::make('gemstone_id')
                                 ->label('Gemstone')
                                 ->placeholder('Select Gemstone')
-                                ->relationship('gemstone','name')
+                                ->relationship('gemstone', 'name')
                                 ->searchable()
                                 ->preload()
                                 ->native(false),
                             Forms\Components\Select::make('occasion_id')
                                 ->label('Occasion')
                                 ->placeholder('Select Occasion')
-                                ->relationship('occasion','name')
+                                ->relationship('occasion', 'name')
                                 ->searchable()
                                 ->preload()
                                 ->native(false),
@@ -70,7 +70,7 @@ class ProductResource extends Resource
                             ->offIcon('heroicon-m-eye-slash')
                             ->default(true)
                             ->inline(false)
-                            ->afterStateUpdated(fn ($state, $set) => $set('status', $state)),
+                            ->afterStateUpdated(fn($state, $set) => $set('status', $state)),
                         Forms\Components\Radio::make('gender')
                             ->label('Gender')
                             ->options([
@@ -83,73 +83,73 @@ class ProductResource extends Resource
                 ])->from('md'), // end split
                 Section::make('Product Details')
                     ->schema([
-                            Forms\Components\TextInput::make('name')
-                                ->required()
-                                ->unique(ignoreRecord: true)
-                                ->live(onBlur: true)
-                                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                                ->minLength(2)
-                                ->placeholder('Diamond Ring')
-                                ->validationMessages([
-                                    'unique' => 'The :attribute has already been added.'
-                                ]),
-                            Forms\Components\TextInput::make('slug')
-                                ->required()
-                                ->readOnly(),
-                            Forms\Components\RichEditor::make('description')
-                                ->required()
-                                ->columnSpan(2)
-                                ->disableToolbarButtons([
-                                    'attachFiles',
-                                    'blockquote',
-                                    'codeBlock',
-                                    'h2',
-                                    'h3',
-                                    'italic',
-                                    'link',
-                                    'orderedList',
-                                    'strike',
-                                ]),
-                        ])
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->minLength(2)
+                            ->placeholder('Diamond Ring')
+                            ->validationMessages([
+                                'unique' => 'The :attribute has already been added.'
+                            ]),
+                        Forms\Components\TextInput::make('slug')
+                            ->required()
+                            ->readOnly(),
+                        Forms\Components\RichEditor::make('description')
+                            ->required()
+                            ->columnSpan(2)
+                            ->disableToolbarButtons([
+                                'attachFiles',
+                                'blockquote',
+                                'codeBlock',
+                                'h2',
+                                'h3',
+                                'italic',
+                                'link',
+                                'orderedList',
+                                'strike',
+                            ]),
+                    ])
                     ->columns(2),
-                    Section::make('Images')
-                        ->schema([
-                            Forms\Components\FileUpload::make('images')
-                                ->required()
-                                ->openable()
-                                ->previewable(true)
-                                ->image()
-                                ->disk('public')
-                                ->directory('products')
-                                ->multiple()
-                                ->imageEditor()
-                                ->reorderable(),
-                        ]),
-                    Section::make('Warranty & Delivery Details')
-                        ->schema([
-                            Forms\Components\TextInput::make('warranty_period')
-                                ->placeholder('2 Month'),
-                            Forms\Components\TextInput::make('delivery_charge')
-                                ->placeholder(100)
-                                ->numeric(),
-                            Forms\Components\Toggle::make('express_delivery_available')
-                                ->onIcon('heroicon-m-check-circle')
-                                ->offIcon('heroicon-m-x-circle')
-                                ->onColor('success')
-                                ->offColor('danger')
-                                ->default(false)
-                                ->inline(false)
-                                ->afterStateUpdated(function (callable $set, $state) {
-                                    if (!$state) {
-                                        $set('express_delivery_charge', null);
-                                    }
-                                }),
-                            Forms\Components\TextInput::make('express_delivery_charge')
-                                ->numeric()
-                                ->placeholder(200)
-                                ->required(fn ($get) => $get('express_delivery_available') === true)
-                        ])
-                        ->columns(2)
+                Section::make('Images')
+                    ->schema([
+                        Forms\Components\FileUpload::make('images')
+                            ->required()
+                            ->openable()
+                            ->previewable(true)
+                            ->image()
+                            ->disk('public')
+                            ->directory('products')
+                            ->multiple()
+                            ->imageEditor()
+                            ->reorderable(),
+                    ]),
+                Section::make('Warranty & Delivery Details')
+                    ->schema([
+                        Forms\Components\TextInput::make('warranty_period')
+                            ->placeholder('2 Month'),
+                        Forms\Components\TextInput::make('delivery_charge')
+                            ->placeholder(100)
+                            ->numeric(),
+                        Forms\Components\Toggle::make('express_delivery_available')
+                            ->onIcon('heroicon-m-check-circle')
+                            ->offIcon('heroicon-m-x-circle')
+                            ->onColor('success')
+                            ->offColor('danger')
+                            ->default(false)
+                            ->inline(false)
+                            ->afterStateUpdated(function (callable $set, $state) {
+                                if (!$state) {
+                                    $set('express_delivery_charge', null);
+                                }
+                            }),
+                        Forms\Components\TextInput::make('express_delivery_charge')
+                            ->numeric()
+                            ->placeholder(200)
+                            ->required(fn($get) => $get('express_delivery_available') === true)
+                    ])
+                    ->columns(2)
             ])->columns(1);
     }
 
@@ -172,7 +172,7 @@ class ProductResource extends Resource
                     ->getStateUsing(function (Product $record) {
                         return $record->productSizes()->count();
                     })
-                    ->icon(fn ($record) => 'heroicon-o-tag')
+                    ->icon(fn($record) => 'heroicon-o-tag')
                     ->alignCenter(),
                 Tables\Columns\TextColumn::make('has_active_offer')
                     ->label('Active Offer')
@@ -197,7 +197,7 @@ class ProductResource extends Resource
                 Tables\Columns\ToggleColumn::make('status')
                     ->onIcon('heroicon-m-eye')
                     ->offIcon('heroicon-m-eye-slash')
-                    ->extraAttributes(['class'=>'w-8'])
+                    ->extraAttributes(['class' => 'w-8'])
 
             ])
             ->filters([
@@ -212,9 +212,9 @@ class ProductResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-//                Tables\Actions\BulkActionGroup::make([
-//                    Tables\Actions\DeleteBulkAction::make(),
-//                ]),
+                //                Tables\Actions\BulkActionGroup::make([
+                //                    Tables\Actions\DeleteBulkAction::make(),
+                //                ]),
             ]);
     }
 

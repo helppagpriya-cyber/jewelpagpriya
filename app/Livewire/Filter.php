@@ -11,9 +11,9 @@ use Livewire\Component;
 
 class Filter extends Component
 {
-    public $wishlist,$products,$gender,$providedProducts, $category=[], $occasion=[], $metal=[], $gemstone=[], $offer=false;
-    protected $queryString = ['category','occasion','metal','gemstone','offer'];
-    public function mount($products,$gender)
+    public $wishlist, $products, $gender, $providedProducts, $category = [], $occasion = [], $metal = [], $gemstone = [], $offer = false;
+    protected $queryString = ['category', 'occasion', 'metal', 'gemstone', 'offer'];
+    public function mount($products, $gender)
     {
         $this->products = $products; // get the products
         $this->providedProducts = $products;
@@ -23,7 +23,7 @@ class Filter extends Component
     public function render()
     {
         // get filtered products
-        if($this->category || $this->metal || $this->gemstone || $this->occasion) {
+        if ($this->category || $this->metal || $this->gemstone || $this->occasion) {
             $this->products = Product::where('status', 1)
                 ->when($this->category, function ($q) {
                     $q->whereIn('category_id', $this->category);
@@ -40,31 +40,32 @@ class Filter extends Component
                 ->when($this->gender, function ($q) {
                     $q->where('gender', $this->gender);
                 })
-//                ->whereHas('productDiscounts', function ($query) {
-//                    $query->where('start_date', '<=', now())
-//                        ->where('end_date', '>=', now());
-//                })
+                ->whereHas('productDiscounts', function ($query) {
+                    $query->where('start_date', '<=', now())
+                        ->where('end_date', '>=', now());
+                })
                 ->get();
-        }
-        else if ($this->gender){
-            if($this->gender == 'F')
-                $this->products = Product::where('status', 1)->where('gender','F')->get();
-            else if($this->gender == 'M')
-                $this->products = Product::where('status', 1)->where('gender','M')->get();
-        }
-        else
+        } else if ($this->gender) {
+            if ($this->gender == 'F')
+                $this->products = Product::where('status', 1)->where('gender', 'F')->get();
+            else if ($this->gender == 'M')
+                $this->products = Product::where('status', 1)->where('gender', 'M')->get();
+        } else
             $this->products = $this->providedProducts;
 
-        $categories = Category::where('status',1)->where('category_id','!=',NULL)->get();
-        $occasions = Occasion::where('status',1)->get();
-        $metals = Metal::where('status',1)->get();
-        $gemstones = Gemstone::where('status',1)->get();
-        return view('livewire.filter',
-            [   'products'=>$this->products,
-                'categories'=>$categories,
-                'occasions'=>$occasions,
-                'metals'=>$metals,
-                'gemstones'=>$gemstones
-            ]);
+        $categories = Category::where('status', 1)->where('category_id', '!=', NULL)->get();
+        $occasions = Occasion::where('status', 1)->get();
+        $metals = Metal::where('status', 1)->get();
+        $gemstones = Gemstone::where('status', 1)->get();
+        return view(
+            'livewire.filter',
+            [
+                'products' => $this->products,
+                'categories' => $categories,
+                'occasions' => $occasions,
+                'metals' => $metals,
+                'gemstones' => $gemstones
+            ]
+        );
     }
 }

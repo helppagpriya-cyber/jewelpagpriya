@@ -95,6 +95,8 @@
                                         class="text-gray-700 hover:text-gray-900 font-medium">Vendor Cart</a></li>
                             @else
                                 <!-- Regular Customer Menu (logged in or guest) -->
+                                <li><a wire:navigate href="/"
+                                        class="text-gray-700 hover:text-gray-900 font-medium">Home</a></li>
                                 <li><a wire:navigate href="/all-products"
                                         class="text-gray-700 hover:text-gray-900 font-medium">All Products</a></li>
                                 <li><a wire:navigate href="/categories"
@@ -106,6 +108,8 @@
                             @endif
                         @else
                             <!-- Guest (not logged in) – same as regular customer -->
+                            <li><a wire:navigate href="/"
+                                    class="text-gray-700 hover:text-gray-900 font-medium">Home</a></li>
                             <li><a wire:navigate href="/all-products"
                                     class="text-gray-700 hover:text-gray-900 font-medium">All Products</a></li>
                             <li><a wire:navigate href="/categories"
@@ -139,12 +143,14 @@
                             <li><a wire:navigate href="/vendorcart"
                                     class="text-gray-700 hover:text-gray-900 font-medium">Vendor Cart</a></li>
                         @else
+                            <li><a wire:navigate href="/">Home</a></li>
                             <li><a wire:navigate href="/all-products">All Products</a></li>
                             <li><a wire:navigate href="/categories">Shop by Category</a></li>
                             <li><a wire:navigate href="/women">Women</a></li>
                             <li><a wire:navigate href="/men">Men</a></li>
                         @endif
                     @else
+                        <li><a wire:navigate href="/">Home</a></li>
                         <li><a wire:navigate href="/all-products">All Products</a></li>
                         <li><a wire:navigate href="/categories">Shop by Category</a></li>
                         <li><a wire:navigate href="/women">Women</a></li>

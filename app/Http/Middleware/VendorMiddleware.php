@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
+
 
 class VendorMiddleware
 {
@@ -15,8 +17,8 @@ class VendorMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || auth()->user()->role !== 2) {
-            abort(403);
+        if (!auth()->user()?->isVendor()) {
+            abort(403, 'Access denied. Wholesale clients only.');
         }
 
         return $next($request);
