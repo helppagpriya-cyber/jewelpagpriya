@@ -108,7 +108,7 @@ class ProductList extends Component
         $this->dispatch('cart-updated');
         $this->dispatch('notify', message: 'Items added to cart!', type: 'success');
 
-        return redirect()->route('vendor.vendorcart');
+        return redirect()->route('vendorcart');
     }
 
     public function getTotalAmountProperty()

@@ -38,7 +38,7 @@ Route::middleware(['auth', 'Vendor']) // create wholesale middleware
         Route::get('/vendorproducts', Productlist::class)
             ->name('products');
         Route::get('/vendorcart', Cart::class)
-            ->name('cart');
+            ->name('vendorcart');
     });
 
 
