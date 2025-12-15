@@ -69,7 +69,7 @@
                                 <div class="flex justify-between items-center">
                                     <span class="text-base font-medium">
                                         <p>Rs.
-                                            {{ $product->productSizes[0]->metal_price + $product->productSizes[0]->gemstone_price + $product->productSizes[0]->making_charges + $product->productSizes[0]->gst }}
+                                            {{ $product->productSize[0]->metal_price + $product->productSize[0]->gemstone_price + $product->productSize[0]->making_charges + $product->productSize[0]->gst }}
                                         </p>
                                     </span>
                                     <span class="my-1 text-yellow-500">

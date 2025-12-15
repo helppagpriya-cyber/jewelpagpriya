@@ -11,19 +11,19 @@ use Livewire\Component;
 
 class Product extends Component
 {
-    public $productSizes, $size, $productSize = '', $product, $quantity = 1;
+    public $productSize, $size, $productSize = '', $product, $quantity = 1;
     public function mount($product)
     {
         $this->product = $product;
-        $this->productSizes = $product->productSizes;
+        $this->productSize = $product->productSize;
     }
     public function render()
     {
         if ($this->size)
             $this->productSize = ProductSize::find($this->size);
         else
-            $this->productSize = $this->productSizes[0];
-        return view('livewire.product', ['productSizes' => $this->productSizes, 'productSize' => $this->productSize]);
+            $this->productSize = $this->productSize[0];
+        return view('livewire.product', ['productSize' => $this->productSize, 'productSize' => $this->productSize]);
     }
 
     public function setSize($size)

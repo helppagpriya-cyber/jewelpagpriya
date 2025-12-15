@@ -17,7 +17,6 @@
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.6",
         "livewire/livewire": "^3.6",
-        "masmerise/livewire-toaster": "^2.8",
         "razorpay/razorpay": "^2.9"
     },
     "require-dev": {

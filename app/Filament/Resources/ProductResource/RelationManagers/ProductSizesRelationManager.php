@@ -11,9 +11,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ProductSizesRelationManager extends RelationManager
+class productSizeRelationManager extends RelationManager
 {
-    protected static string $relationship = 'productSizes';
+    protected static string $relationship = 'productSize';
 
     public function form(Form $form): Form
     {
@@ -21,7 +21,7 @@ class ProductSizesRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TextInput::make('size')
                     ->required(),
-//                    ->unique(ignoreRecord: true),
+                //                    ->unique(ignoreRecord: true),
                 Forms\Components\TextInput::make('stock')
                     ->required()
                     ->numeric(),
@@ -84,7 +84,7 @@ class ProductSizesRelationManager extends RelationManager
                     ->getStateUsing(function ($record) {
                         return $record->metal_price + $record->gemstone_price + $record->making_charges + $record->gst;
                     })
-                    ->icon(fn ($record) => 'heroicon-o-currency-rupee'),
+                    ->icon(fn($record) => 'heroicon-o-currency-rupee'),
             ])
             ->filters([
                 //
@@ -95,12 +95,12 @@ class ProductSizesRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-//                Tables\Actions\DeleteAction::make(),
+                //                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-//                Tables\Actions\BulkActionGroup::make([
-//                    Tables\Actions\DeleteBulkAction::make(),
-//                ]),
+                //                Tables\Actions\BulkActionGroup::make([
+                //                    Tables\Actions\DeleteBulkAction::make(),
+                //                ]),
             ]);
     }
 }

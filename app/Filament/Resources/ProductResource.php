@@ -170,7 +170,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('Available sizes')
                     ->label('Available Sizes')
                     ->getStateUsing(function (Product $record) {
-                        return $record->productSizes()->count();
+                        return $record->productSize()->count();
                     })
                     ->icon(fn($record) => 'heroicon-o-tag')
                     ->alignCenter(),
@@ -221,7 +221,7 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ProductSizesRelationManager::class,
+            RelationManagers\productSizeRelationManager::class,
             RelationManagers\ProductDiscountsRelationManager::class
         ];
     }

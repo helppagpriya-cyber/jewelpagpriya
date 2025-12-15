@@ -7,7 +7,7 @@
                     <h4 class="text-center text-white py-4 rounded-t-lg bg-pink-400">{{ __('Sign In') }}</h4>
 
                     <div class="p-6">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('home') }}">
                             @csrf
 
                             <div class="mb-4">

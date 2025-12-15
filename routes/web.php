@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
 
+Route::get('/', IndexPage::class)->name('home');
+
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
@@ -27,7 +29,7 @@ Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('register');
 Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
 Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
-Route::get('/', IndexPage::class)->name('home');
+
 
 Route::middleware(['auth', 'Vendor']) // create wholesale middleware
     ->prefix('vendor')

@@ -114,7 +114,7 @@
                         <h5 class="text-xl font-semibold">{{ $latest->name }}</h5>
                         <div class="flex justify-between items-center">
                             <span class="text-lg font-medium">Rs.
-                                {{ $latest->productSizes[0]->metal_price + $latest->productSizes[0]->gemstone_price + $latest->productSizes[0]->making_charges + $latest->productSizes[0]->gst }}</span>
+                                {{ $latest->productSize[0]->metal_price + $latest->productSize[0]->gemstone_price + $latest->productSize[0]->making_charges + $latest->productSize[0]->gst }}</span>
                             <span class="my-1 text-yellow-500">
                                 @php $rating = $latest->review->first()->rating ?? 0; @endphp
                                 @for ($i = 0; $i < $rating; $i++)
@@ -157,7 +157,7 @@
                         <h5 class="text-xl font-semibold">{{ $rated->product->name }}</h5>
                         <div class="flex justify-between items-center">
                             <span class="text-lg font-medium">Rs.
-                                {{ $rated->product->productSizes[0]->metal_price + $rated->product->productSizes[0]->gemstone_price + $rated->product->productSizes[0]->making_charges + $rated->product->productSizes[0]->gst }}</span>
+                                {{ $rated->product->productSize[0]->metal_price + $rated->product->productSize[0]->gemstone_price + $rated->product->productSize[0]->making_charges + $rated->product->productSize[0]->gst }}</span>
                             <span class="my-1 text-yellow-500">
                                 @php $rating = $rated->product->review->first()->rating ?? 0; @endphp
                                 @for ($i = 0; $i < $rating; $i++)

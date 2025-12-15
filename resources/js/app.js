@@ -1,5 +1,4 @@
-import './bootstrap';
-import '../../vendor/masmerise/livewire-toaster/resources/js';
+import './bootstrap';;
 
 document.addEventListener('DOMContentLoaded', () => {
     // Helper function to toggle offcanvas

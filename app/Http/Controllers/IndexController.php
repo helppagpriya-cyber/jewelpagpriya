@@ -74,8 +74,8 @@ class IndexController extends Controller
     public function product($product_id)
     {
         $product = Product::find($product_id);
-        $productSizes = $product->productSizes();
-        return view('product', compact('product', 'productSizes'));
+        $productSize = $product->productSize();
+        return view('product', compact('product', 'productSize'));
     }
 
     public function wishlist($product_id)

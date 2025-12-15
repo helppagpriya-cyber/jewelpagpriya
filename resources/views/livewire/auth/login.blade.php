@@ -34,8 +34,11 @@
                         </div>
 
                         <button type="submit"
-                            class="w-full px-5 py-2 text-white rounded-md bg-pink-400 hover:bg-pink-700">
-                            Sign In
+                            class="w-full px-5 py-2 text-white rounded-md bg-pink-400 hover:bg-pink-700"
+                            wire:loading.attr="disabled" wire:target="login">
+                            <span wire:loading.remove wire:target="login">Sign In</span>
+                            <span wire:loading wire:target="login">You are Signing In...</span>
+
                         </button>
 
                         @if (Route::has('password.request'))

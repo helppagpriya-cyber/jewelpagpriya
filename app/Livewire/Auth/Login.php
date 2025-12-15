@@ -17,6 +17,13 @@ class Login extends Component
         'password' => 'required',
     ];
 
+    public function mount()
+    {
+        Notification::make()->success()->title('Test Notification')->send();
+    }
+
+
+
     public function login()
     {
         $this->validate();
@@ -26,10 +33,10 @@ class Login extends Component
 
             Notification::make()->success()->title('Welcome back!')->send();
 
-            return $this->redirect('/', navigate: true);
+            return $this->redirect(route('home'), navigate: true);
         }
 
-        $this->addError('email', 'The provided credentials are incorrect.');
+        $this->addError('password', 'The provided credentials are incorrect.');
     }
 
     public function render()
