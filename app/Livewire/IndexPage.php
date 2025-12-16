@@ -17,7 +17,7 @@ class IndexPage extends Component
     public function mount()
     {
         $this->wishlist = Auth::check()
-            ? Auth::user()->wishlist()->pluck('product_id')->toArray()
+            ? Auth::user()->wishlists()->pluck('product_id')->toArray()
             : [];
     }
 

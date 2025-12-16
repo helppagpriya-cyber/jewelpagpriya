@@ -22,10 +22,11 @@ class ProductList extends Component
     public $silverRate = 200; // ₹ per gram
     public $labourRate = 65; // ₹ per gram
 
+
     public function mount()
     {
         $this->products = Product::where('status', 1)
-            ->with('productSize') // Ensure relation name matches your model
+            ->with('productSize')
             ->get();
 
         // Prefill quantities with 1 for each product
@@ -39,8 +40,10 @@ class ProductList extends Component
 
     public function updatedSelected($quantity, $productId)
     {
-        if ($quantity < 1) {
+        if ($quantity <= 0) {
             unset($this->selected[$productId]);
+        } else {
+            $this->selected[$productId] = (int) $quantity;
         }
     }
 
@@ -71,7 +74,7 @@ class ProductList extends Component
 
             $subtotal = $this->mode === 'amount'
                 ? (($this->silverRate + $this->labourRate) * $productSize->metal_weight) * $quantity
-                : 0;
+                : (($this->labourRate) * $productSize->metal_weight) * $quantity;
 
             $items[] = [
                 'product_id' => $product->id,
@@ -86,15 +89,15 @@ class ProductList extends Component
             ];
         }
 
-        if ($totalWeight < $this->minWeight) {
-            $this->addError('weight', "Minimum Order weight is {$this->minWeight} grams.");
-            return;
-        }
+        // if ($totalWeight < $this->minWeight) {
+        //     $this->addError('weight', "Minimum Order weight is {$this->minWeight} grams.");
+        //     return;
+        // }
 
-        if ($totalWeight > $this->maxWeight) {
-            $this->addError('weight', "Maximum Order weight is {$this->maxWeight} grams.");
-            return;
-        }
+        // if ($totalWeight > $this->maxWeight) {
+        //     $this->addError('weight', "Maximum Order weight is {$this->maxWeight} grams.");
+        //     return;
+        // }
 
         // Merge with existing cart
         $cart = Session::get('wholesale_cart', []);
@@ -105,6 +108,7 @@ class ProductList extends Component
         Session::put('wholesale_cart', $cart);
 
         $this->selected = [];
+
         $this->dispatch('cart-updated');
         $this->dispatch('notify', message: 'Items added to cart!', type: 'success');
 
@@ -130,6 +134,7 @@ class ProductList extends Component
 
     public function render()
     {
+
         return view('livewire.vendor.product-list');
     }
 }

@@ -31,15 +31,15 @@ Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
 Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
 
 
-Route::middleware(['auth', 'Vendor']) // create wholesale middleware
-    ->prefix('vendor')
-    ->name('vendor.')
-    ->group(function () {
-        Route::get('/vendorproducts', Productlist::class)
-            ->name('products');
-        Route::get('/vendorcart', Cart::class)
-            ->name('cart');
-    });
+// Route::middleware(['auth', 'Vendor']) // create wholesale middleware
+//     ->prefix('vendor')
+//     ->name('vendor.')
+//     ->group(function () {
+//         Route::get('/vendorproducts', Productlist::class)
+//             ->name('products');
+//         Route::get('/vendorcart', Cart::class)
+//             ->name('vendorcart');
+//     });
 
 
 
@@ -47,7 +47,7 @@ Route::middleware(['auth', 'Vendor']) // create wholesale middleware
 
 
 Route::get('/vendorproducts', ProductList::class)->name('vendor.products')->middleware('auth');
-// Route::get('/vendorcart', Cart::class)->name('vendor.cart')->middleware('auth');
+Route::get('/vendorcart', Cart::class)->name('vendor.vendorcart')->middleware('auth');
 Route::get('/vendororders', OrderList::class)->name('vendor.orders')->middleware('auth');
 
 
