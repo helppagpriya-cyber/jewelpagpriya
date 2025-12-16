@@ -24,4 +24,8 @@ class Wishlist extends Model
     {
         return $query->where('product_id', $productId);
     }
+    public function productSize()
+    {
+        return $this->belongsTo(ProductSize::class);
+    }
 }
