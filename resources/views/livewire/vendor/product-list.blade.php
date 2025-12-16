@@ -44,7 +44,7 @@
 
                         <tr class="border-t hover:bg-gray-50">
                             <td class="py-4 px-4">
-                                <input type="checkbox" wire:model.lazy="selected.{{ $product->id }}" value="1"
+                                <input type="checkbox" wire:model.live="selected.{{ $product->id }}" value="1"
                                     class="w-5 h-5">
                             </td>
                             <td class="py-4 px-4">
@@ -57,14 +57,14 @@
                             <td class="py-4 px-4">₹ {{ number_format($labourRate, 2) }}/gm</td>
                             <td class="py-4 px-4">
                                 <input type="number" min="1" max="50"
-                                    wire:model.debounce.500ms="selected.{{ $product->id }}"
+                                    wire:model.live="selected.{{ $product->id }}"
                                     class="w-20 border rounded px-2 py-1 text-center" placeholder="1">
                             </td>
                             <td class="py-4 px-4 text-right font-semibold">
                                 @if ($mode === 'amount')
-                                    ₹ {{ number_format($rowAmount, 2) }}
+                                    ₹ {{ number_format($ratePerGram * $metalWeight * $quantity, 2) }}
                                 @else
-                                    N/A
+                                    ₹ {{ number_format($labourRate * $metalWeight * $quantity, 2) }}
                                 @endif
                             </td>
                         </tr>
@@ -74,7 +74,20 @@
                 <!-- Grand Total Row -->
                 <tfoot class="bg-gray-200 font-bold">
                     <tr>
-                        <td colspan="7" class="py-4 px-4 text-right text-lg">Total Amount:</td>
+                        <td colspan="3" class="py-4 px-4 text-right text-lg">Total Weight:</td>
+                        <td class="py-4 px-4 text-right text-lg text-blue-700">
+                            {{ number_format(
+                                collect($products)->sum(function ($product) use ($selected) {
+                                    $size = $product->productSize->first();
+                                    $metalWeight = $size?->metal_weight ?? 0;
+                                    $quantity = $selected[$product->id] ?? 0;
+                                    return $metalWeight * $quantity;
+                                }),
+                                3,
+                            ) }}
+                            gm
+                        </td>
+                        <td colspan="3" class="py-4 px-4 text-right text-lg">Total Amount:</td>
                         <td class="py-4 px-4 text-right text-green-700 text-lg">
                             @if ($mode === 'amount')
                                 ₹
@@ -88,7 +101,16 @@
                                     2,
                                 ) }}
                             @else
-                                N/A
+                                ₹
+                                {{ number_format(
+                                    collect($products)->sum(function ($product) use ($selected, $silverRate, $labourRate) {
+                                        $size = $product->productSize->first();
+                                        $metalWeight = $size?->metal_weight ?? 0;
+                                        $quantity = $selected[$product->id] ?? 0;
+                                        return $labourRate * $metalWeight * $quantity;
+                                    }),
+                                    2,
+                                ) }}
                             @endif
                         </td>
                     </tr>
