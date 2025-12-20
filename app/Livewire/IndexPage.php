@@ -28,7 +28,7 @@ class IndexPage extends Component
                 ->title('Login required')
                 ->body('Please login to manage wishlist')
                 ->send();
-            return;
+            return redirect()->route('login');
         }
 
         $user = Auth::user();

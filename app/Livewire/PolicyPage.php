@@ -16,6 +16,7 @@ class PolicyPage extends Component
 
     public function render()
     {
+
         return view('livewire.policy-page');
     }
 }

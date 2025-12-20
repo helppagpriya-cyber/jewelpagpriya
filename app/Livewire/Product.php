@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class Product extends Component
 {
-    public $productSize, $size, $productSize = '', $product, $quantity = 1;
+    public $productSizes, $size, $productSize = '', $product, $quantity = 1;
     public function mount($product)
     {
         $this->product = $product;

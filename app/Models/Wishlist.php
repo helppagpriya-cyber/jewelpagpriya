@@ -20,6 +20,10 @@ class Wishlist extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    public function productsize()
+    {
+        return $this->belongsTo(ProductSize::class);
+    }
     public function scopeForProduct($query, $productId)
     {
         return $query->where('product_id', $productId);
