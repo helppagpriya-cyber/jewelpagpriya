@@ -4,61 +4,84 @@ namespace App\Livewire;
 
 use App\Models\Cart;
 use App\Models\ProductSize;
-
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Product extends Component
 {
-    public $productSize, $size, $productSize = '', $product, $quantity = 1;
+    public $product;
+    public $size;           // Selected size ID
+    public $quantity = 1;   // Quantity to add to cart
+
+    public $productSize;    // Currently selected ProductSize model
+    public $productSizes;   // Collection of all sizes for this product
+
     public function mount($product)
     {
         $this->product = $product;
-        $this->productSize = $product->productSize;
+        $this->productSizes = $product->productSize;
+
+        // Set default size (first available)
+        $this->size = $this->productSizes->first()->id ?? null;
+        $this->updateSelectedProductSize();
     }
+
+    public function updatedSize()
+    {
+        $this->updateSelectedProductSize();
+    }
+
+    private function updateSelectedProductSize()
+    {
+        $this->productSize = $this->productSizes->firstWhere('id', $this->size)
+            ?? $this->productSizes->first();
+    }
+
+    public function setSize($sizeId)
+    {
+        $this->size = $sizeId;
+        $this->updateSelectedProductSize();
+    }
+
+    public function addToCart()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login'); // use named route if you have one
+        }
+
+        $existingCart = Cart::where('user_id', Auth::id())
+            ->where('product_id', $this->product->id)
+            ->where('product_size_id', $this->productSize->id)
+            ->first();
+
+        if ($existingCart) {
+            Notification::make()
+                ->warning()
+                ->title('This product (with selected size) is already in your cart.')
+                ->send();
+        } else {
+            Cart::create([
+                'user_id'         => Auth::id(),
+                'product_id'      => $this->product->id,
+                'product_size_id' => $this->productSize->id,
+                'quantity'        => $this->quantity,
+            ]);
+
+            Notification::make()
+                ->success()
+                ->title('Product added to cart successfully!')
+                ->send();
+
+            $this->dispatch('cart-updated'); // optional: emit event to update cart counter
+        }
+    }
+
     public function render()
     {
-        if ($this->size)
-            $this->productSize = ProductSize::find($this->size);
-        else
-            $this->productSize = $this->productSize[0];
-        return view('livewire.product', ['productSize' => $this->productSize, 'productSize' => $this->productSize]);
-    }
-
-    public function setSize($size)
-    {
-        $this->size = $size;
-    }
-
-    public function AddToCart()
-    {
-        if (Auth::user()) {
-            $existingCart = Auth::user()->carts()->where('product_id', $this->product->id)
-                ->where('product_size_id', $this->productSize->id)
-                ->first();
-
-            if ($existingCart) {
-
-                Notification::make()
-                    ->success()
-                    ->title('Warning! This Product is already in your cart.')
-                    ->send();
-                session()->flash('warning', 'This product is already in your cart.');
-            } else {
-                Auth::user()->carts()->create([
-                    'product_id' => $this->product->id,
-                    'product_size_id' => $this->productSize->id,
-                    'quantity' => $this->quantity
-                ]);
-                Notification::make()
-                    ->success()
-                    ->title('Product added to cart successfully!')
-                    ->send();
-                session()->flash('success', 'Product added to cart successfully!');
-            }
-        } else {
-            return redirect('login');
-        }
+        return view('livewire.product', [
+            'productSizes' => $this->productSizes,
+            'selectedSize' => $this->productSize,
+        ]);
     }
 }

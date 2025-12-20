@@ -1,195 +1,193 @@
-<div class="container mx-auto mb-4 mt-4">
-    {{-- Success Message --}}
-    @if (session()->has('success'))
+<div class="container mx-auto my-8">
+    <!-- Success / Warning Messages -->
+    @if (session('success'))
         <div x-data="{ show: true }" x-show="show" x-transition
-            class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
             <span class="block sm:inline">{{ session('success') }}</span>
-            <button type="button" @click="show = false"
-                class="absolute top-0 right-0 p-3 text-green-700 hover:text-green-900" aria-label="Close">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <button @click="show = false" class="absolute top-2 right-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd"
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
+                        clip-rule="evenodd" />
                 </svg>
             </button>
         </div>
     @endif
 
-
-    {{-- Warning Message --}}
-    @if (session()->has('warning'))
+    @if (session('warning'))
         <div x-data="{ show: true }" x-show="show" x-transition
-            class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4"
+            class="mb-6 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative"
             role="alert">
             <span class="block sm:inline">{{ session('warning') }}</span>
-            <button type="button" @click="show = false"
-                class="absolute top-0 right-0 p-3 text-yellow-700 hover:text-yellow-900" aria-label="Close">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <button @click="show = false" class="absolute top-2 right-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd"
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
+                        clip-rule="evenodd" />
                 </svg>
             </button>
         </div>
     @endif
 
-
-    <div class="flex flex-wrap -mx-2 mt-4">
-        <div class="w-full md:w-1/2 px-2">
-            <div class="flex flex-wrap">
-                <div id="carouselExample" class="relative w-full">
-                    <div class="relative">
-                        @foreach ($product->images as $key => $img)
-                            <div class="relative {{ $key == 0 ? 'block' : 'hidden' }}">
-                                <img src="{{ asset('storage/' . $img) }}"
-                                    class="rounded-lg block w-full h-1/2 object-cover " alt="Product image">
-                            </div>
-                        @endforeach
-                    </div>
-                    <button class="absolute top-1/2 left-0 transform -translate-y-1/2 p-4" type="button"
-                        data-bs-target="carouselExample" data-bs-slide="prev">
-                        <span class="inline-block w-8 h-8 bg-black bg-opacity-50 rounded-full"
-                            aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </button>
-                    <button class="absolute top-1/2 right-0 transform -translate-y-1/2 p-4" type="button"
-                        data-bs-target="carouselExample" data-bs-slide="next">
-                        <span class="inline-block w-8 h-8 bg-black bg-opacity-50 rounded-full"
-                            aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </button>
+    <div class="flex flex-col md:flex-row gap-8">
+        <!-- Product Images -->
+        <div class="md:w-1/2">
+            <div id="productCarousel" class="relative">
+                <div class="overflow-hidden rounded-lg">
+                    @foreach ($product->images as $index => $image)
+                        <div class="{{ $index === 0 ? 'block' : 'hidden' }} w-full">
+                            <img src="{{ asset('storage/' . $image) }}" alt="{{ $product->name }}"
+                                class="w-full h-auto object-cover rounded-lg">
+                        </div>
+                    @endforeach
                 </div>
+
+                <!-- Carousel Controls (you can enhance with real carousel JS if needed) -->
+                <button class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+                    type="button" onclick="prevSlide()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <button class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+                    type="button" onclick="nextSlide()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
             </div>
         </div>
-        <div class="w-full md:w-1/2 px-2">
-            <h1 class="text-center text-4xl font-bold">{{ $product->name }}</h1>
-            <p><b>About the Product :</b></p>
-            {!! $product->description !!}
 
-            <div>
-                @if ($productSize)
-                    <span>Select Product Size:</span>
-                    @foreach ($productSize as $size)
-                        <button type="button"
-                            class="border {{ $productSize->id == $size->id ? 'border-red-900' : 'border-gray-300' }} px-3 py-1 rounded hover:bg-gray-100"
-                            wire:click="setSize({{ $size->id }})">{{ $size->size }}</button>
-                    @endforeach
-                @endif
-                @if ($product->productDiscounts->count() > 0)
-                    @foreach ($product->productDiscounts as $discount)
-                        @if ($discount->start_date <= \Carbon\Carbon::now() && $discount->end_date >= \Carbon\Carbon::now())
-                            <div class="flex my-4">
-                                <p class="text-3xl font-bold">₹
-                                    {{ $productSize->metal_price + $productSize->gemstone_price + $productSize->making_charges + $productSize->gst - $discount->discount }}
-                                </p>
-                                <p class="line-through mx-3 text-gray-500">₹
-                                    {{ $productSize->metal_price + $productSize->gemstone_price + $productSize->making_charges + $productSize->gst }}
-                                </p>
-                            </div>
-                        @endif
-                    @endforeach
-                @else
-                    <p class="text-3xl font-bold mt-4">₹
-                        {{ $productSize->metal_price + $productSize->gemstone_price + $productSize->making_charges + $productSize->gst }}
-                    </p>
-                @endif
-                <p class="flex items-center">Quantity : &nbsp; <input type="number" wire:model.live="quantity"
-                        value="1"
-                        class="w-24 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                </p>
-                <div class="flex flex-wrap -mx-2 mt-4">
-                    <div class="w-full md:w-1/2 px-2">
-                        <button class="bg-yellow-500 text-white w-full py-2 rounded hover:bg-yellow-600"
-                            wire:click="AddToCart()">Add To Cart</button>
-                    </div>
-                    <a wire:navigate href="{{ url('shop-now/' . $product->id) }}"
-                        class="w-full md:w-5/12 mx-auto px-2 text-white bg-green-500 py-2 rounded text-center hover:bg-green-600">Shop
-                        Now</a>
+        <!-- Product Details -->
+        <div class="md:w-1/2">
+            <h1 class="text-4xl font-bold text-center mb-6">{{ $product->name }}</h1>
+
+            <div class="mb-6">
+                <p class="font-semibold mb-2">About the Product:</p>
+                {!! $product->description !!}
+            </div>
+
+            <!-- Size Selection -->
+
+
+            <!-- Price -->
+            <div class="mb-6">
+                @php
+                    $basePrice =
+                        $selectedSize->metal_price +
+                        $selectedSize->gemstone_price +
+                        $selectedSize->making_charges +
+                        $selectedSize->gst;
+                    $activeDiscount = $product->productDiscounts->first(
+                        fn($d) => $d->start_date <= now() && $d->end_date >= now(),
+                    );
+                    $finalPrice = $activeDiscount ? $basePrice - $activeDiscount->discount : $basePrice;
+                @endphp
+
+                <div class="flex items-baseline gap-4">
+                    <p class="text-3xl font-bold text-red-600">₹{{ number_format($finalPrice) }}</p>
+                    @if ($activeDiscount)
+                        <p class="text-xl text-gray-500 line-through">₹{{ number_format($basePrice) }}</p>
+                        <span class="text-green-600 font-medium">({{ $activeDiscount->discount }} off)</span>
+                    @endif
                 </div>
-                <h4 class="text-center text-xl font-semibold mt-5 mb-3">Other Details</h4>
-                <table class="w-full border-collapse border border-gray-300 text-center">
-                    @if ($product->occasion_id)
+            </div>
+
+            <!-- Quantity & Actions -->
+            <div class="mb-8">
+                <label class="block mb-2">Quantity:
+                    <input type="number" wire:model.live="quantity" min="1" value="1"
+                        class="ml-2 w-20 border rounded px-2 py-1">
+                </label>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button wire:click="addToCart"
+                    class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-3 rounded transition">
+                    Add to Cart
+                </button>
+                <a wire:navigate href="{{ url('shop-now/' . $product->id) }}"
+                    class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-medium py-3 rounded transition">
+                    Buy Now
+                </a>
+            </div>
+
+            <!-- Product Details Table -->
+            <h4 class="text-xl font-semibold my-6 text-center">Product Details</h4>
+            <table class="w-full border border-gray-300 text-center">
+                <tbody>
+                    @if ($product->occasion)
                         <tr>
-                            <td class="font-bold border border-gray-300 p-2">Occasion</td>
-                            <td class="border border-gray-300 p-2">{{ $product->occasion->name }}</td>
+                            <td class="font-bold border border-gray-300 p-3">Occasion</td>
+                            <td class="border border-gray-300 p-3">{{ $product->occasion->name }}</td>
                         </tr>
                     @endif
-                    @if ($product->metal_id)
+
+                    @if ($product->metal)
                         <tr>
-                            <td class="font-bold border border-gray-300 p-2">Metal</td>
-                            <td class="border border-gray-300 p-2">{{ $product->metal->name }}</td>
+                            <td class="font-bold border border-gray-300 p-3">Metal</td>
+                            <td class="border border-gray-300 p-3">{{ $product->metal->name }}</td>
                         </tr>
                         <tr>
-                            <td class="font-bold border border-gray-300 p-2">Metal Purity</td>
-                            <td class="border border-gray-300 p-2">Pure Silver {{ $productSize->metal_purity }}</td>
+                            <td class="font-bold border border-gray-300 p-3">Metal Purity</td>
+                            <td class="border border-gray-300 p-3">Pure Silver {{ $selectedSize->metal_purity }}</td>
                         </tr>
                         @if ($product->metal_id !== 1)
                             <tr>
-                                <td class="font-bold border border-gray-300 p-2">Metal Price</td>
-                                <td class="border border-gray-300 p-2">Rs. {{ $productSize->metal_price }}</td>
+                                <td class="font-bold border border-gray-300 p-3">Metal Price</td>
+                                <td class="border border-gray-300 p-3">₹{{ $selectedSize->metal_price }}</td>
                             </tr>
                         @endif
                     @endif
-                    @if ($product->gemstone_id)
-                        <tr>
-                            <td class="font-bold border border-gray-300 p-2">Gemstone</td>
-                            <td class="border border-gray-300 p-2">{{ $product->gemstone->name }}</td>
-                        </tr>
-                        {{-- <tr>
-                            <td class="font-bold border border-gray-300 p-2">Gemstone Purity</td>
-                            <td class="border border-gray-300 p-2">{{ $productSize->gemstone_purity }}</td>
-                        </tr> 
-                        <tr>
-                            <td class="font-bold border border-gray-300 p-2">Gemstone Price</td>
-                            <td class="border border-gray-300 p-2">Rs. {{ $productSize->gemstone_price }}</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold border border-gray-300 p-2">No. of Gemstone</td>
-                            <td class="border border-gray-300 p-2">{{ $productSize->num_of_gemstone }}</td>
-                        </tr> --}}
-                    @endif
-                    <tr>
-                        <td class="font-bold border border-gray-300 p-2">MRP</td>
-                        <td class="border border-gray-300 p-2">
-                            ₹{{ $productSize->gemstone_price + $productSize->metal_price + $productSize->gst + $productSize->making_charges }}/-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    {{-- section 1 --}}
 
-    @if ($product->review->count() > 0)
-        <hr class="my-4">
-        <h5 class="text-lg font-semibold">Top Reviews :</h5>
-    @endif
-    {{-- reviews --}}
-    @forelse($product->review as $review)
-        <div class="flex flex-wrap my-2">
-            <div class="flex items-center">
-                <img src="{{ asset('storage/' . ($review->user->avatar ?? 'img.png')) }}"
-                    class="rounded-full w-[50px] h-[50px] object-cover" alt="User Image">
-                <span class="ml-1">{{ $review->user->name }}</span>
-            </div>
-            <div class="flex mx-2">
-                @for ($i = 0; $i < $review->rating; $i++)
-                    <i class="fa-solid fa-star text-yellow-500 inline"></i>
-                @endfor
-            </div>
-            <span class="ml-2">{{ $review->comment ?? '' }}</span>
-            <div class="flex ml-1">
-                @if ($review->image)
-                    @foreach ($review->image as $img)
-                        <img src="{{ asset('storage/' . $img) }}"
-                            class="rounded mx-1 my-0 p-0 w-[80px] h-[80px] object-cover" alt="User Image">
-                    @endforeach
-                @endif
-            </div>
+                    @if ($product->gemstone)
+                        <tr>
+                            <td class="font-bold border border-gray-300 p-3">Gemstone</td>
+                            <td class="border border-gray-300 p-3">{{ $product->gemstone->name }}</td>
+                        </tr>
+                    @endif
+
+                    <tr>
+                        <td class="font-bold border border-gray-300 p-3">MRP (incl. GST)</td>
+                        <td class="border border-gray-300 p-3">₹{{ number_format($basePrice) }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    @empty
-    @endforelse
-    {{-- reviews --}}
-    <div>
     </div>
+
+    <!-- Reviews Section -->
+    @if ($product->review->count() > 0)
+        <hr class="my-10">
+        <h5 class="text-2xl font-semibold mb-6">Customer Reviews</h5>
+
+        @foreach ($product->review as $review)
+            <div class="flex flex-col sm:flex-row gap-4 my-6 border-b pb-6">
+                <div class="flex items-center gap-3">
+                    <img src="{{ asset('storage/' . ($review->user->avatar ?? 'img.png')) }}"
+                        alt="{{ $review->user->name }}" class="w-12 h-12 rounded-full object-cover">
+                    <div>
+                        <p class="font-medium">{{ $review->user->name }}</p>
+                        <div class="flex text-yellow-500">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class="fa{{ $i <= $review->rating ? '-solid' : '-regular' }} fa-star"></i>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <p>{{ $review->comment ?? 'No comment.' }}</p>
+                    @if ($review->image)
+                        <div class="flex gap-2 mt-3">
+                            @foreach ($review->image as $img)
+                                <img src="{{ asset('storage/' . $img) }}" class="w-20 h-20 object-cover rounded"
+                                    alt="Review image">
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endforeach
+    @endif
 </div>
