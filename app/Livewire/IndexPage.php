@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\Slider;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Filament\Notifications\Notification;
 use Livewire\Component;
@@ -20,7 +21,7 @@ class IndexPage extends Component
             : [];
     }
 
-    public function toggleWishlist($productId, $isWishlisted)
+    public function toggleWishlist($productId = null)
     {
         if (!Auth::check()) {
             Notification::make()
@@ -31,19 +32,24 @@ class IndexPage extends Component
             return redirect()->route('login');
         }
 
-        $user = Auth::user();
 
-        if ($isWishlisted) {
-            $user->wishlists()->attach($productId);
-            Notification::make()->success()->title('Added to wishlist')->send();
-        } else {
-            $user->wishlists()->detach($productId);
-            Notification::make()->success()->title('Removed from wishlist')->send();
-        }
+        Wishlist::create([
+            'user_id' => Auth::id(),
+            'product_id' => $productId,
+        ]);
 
-        $this->wishlist = $user->wishlists()->pluck('product_id')->toArray();
+        $this->dispatch('wishlist-updated');
+        session()->flash('message', 'Added to wishlist!');
     }
 
+    public function removeFromWishlist($productId)
+    {
+        Wishlist::where('user_id', Auth::id())
+            ->where('product_id', $productId)
+            ->delete();
+
+        $this->dispatch('wishlist-updated');
+    }
     public function render()
     {
         $sliders = Slider::where('status', 1)->get();
