@@ -111,9 +111,9 @@
                             class="w-full h-[220px] object-fit:cover rounded-t-lg" alt="Product image">
                     </a>
                     <div class="p-4">
-                        <h5 class="text-xl font-semibold">{{ $latest->name }}</h5>
+                        <h5 class="text-xl font-semibold truncate">{{ $latest->name }}</h5>
                         <div class="flex justify-between items-center">
-                            <span class="text-lg font-medium">Rs.
+                            <span class="text-lg font-medium">₹
                                 {{ $latest->productSize[0]->metal_price + $latest->productSize[0]->gemstone_price + $latest->productSize[0]->making_charges + $latest->productSize[0]->gst }}</span>
                             <span class="my-1 text-yellow-500">
                                 @php $rating = $latest->review->first()->rating ?? 0; @endphp

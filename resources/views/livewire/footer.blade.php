@@ -1,4 +1,5 @@
 <div>
+
     <footer class="py-5 text-white bg-pink-400">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -38,9 +39,9 @@
                     @endforeach
                 </div>
                 <div class="mt-4 md:mt-0">
-                    <h4 class="font-bold mb-2">Policies</h4>
+                    <h4 class="font-bold mb-2">Our Policies</h4>
 
-                    @if ($policies->count())
+                    {{-- @if ($policies->count())
                         <ul class="space-y-1 text-sm">
                             @foreach ($policies as $policy)
                                 <li>
@@ -52,7 +53,7 @@
                         </ul>
                     @else
                         <p>All policies will update shortly.</p>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
         </div>

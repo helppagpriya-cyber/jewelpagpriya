@@ -199,6 +199,7 @@ class IndexController extends Controller
     public function review($product_id)
     {
         $product = Product::find($product_id);
+
         return view('review', compact('product'));
     }
 

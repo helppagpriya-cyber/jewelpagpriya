@@ -10,13 +10,7 @@ use Livewire\Component;
 
 class Product extends Component
 {
-    public $product;
-    public $size;           // Selected size ID
-    public $quantity = 1;   // Quantity to add to cart
-
-    public $productSize;    // Currently selected ProductSize model
-    public $productSizes;   // Collection of all sizes for this product
-
+    public $productSizes, $size, $productSize = '', $product, $quantity = 1;
     public function mount($product)
     {
         $this->product = $product;

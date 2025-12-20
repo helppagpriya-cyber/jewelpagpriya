@@ -24,22 +24,12 @@ class IndexPage extends Component
     public function toggleWishlist($productId = null)
     {
         if (!Auth::check()) {
-            // Handle guest: Redirect to login or use session-based wishlist
+            Notification::make()
+                ->warning()
+                ->title('Login required')
+                ->body('Please login to manage wishlist')
+                ->send();
             return redirect()->route('login');
-        }
-
-        $productId = $productId ?? $this->product->id;
-
-        // Check if already in wishlist
-        $exists = Wishlist::where('user_id', Auth::id())
-            ->where('product_id', $productId)
-            ->exists();
-
-        if ($exists) {
-            // Optional: Remove instead (toggle)
-            $this->removeFromWishlist($productId);
-            $this->dispatch('wishlist-updated'); // Optional event
-            return;
         }
 
 
