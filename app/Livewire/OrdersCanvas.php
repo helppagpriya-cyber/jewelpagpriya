@@ -24,7 +24,7 @@ class OrdersCanvas extends Component
     public function show()
     {
         $this->open = true;
-        $this->loadOrders(); // Refresh on open
+        //$this->loadOrders(); // Refresh on open
     }
 
     public function hide()

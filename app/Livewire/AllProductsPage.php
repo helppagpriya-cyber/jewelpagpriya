@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Metal;
 use App\Models\Occasion;
 use App\Models\Product;
+use App\Models\ProductDiscount;
+use App\Models\ProductSize;
 use Filament\Notifications\Notification;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -28,6 +30,10 @@ class AllProductsPage extends Component
     public $metal = [];
     #[Url]
     public $gender;
+    #[Url]
+    public $sort;
+
+
     #[Url]
     public $offer = false;
 
@@ -64,26 +70,6 @@ class AllProductsPage extends Component
         $this->wishlist = $user->wishlists()->pluck('product_id')->toArray();
     }
 
-    // public function toggleWishlist($id)
-    // {
-    //     if (!auth()->check()) {
-    //         return redirect()->route('login');
-    //     }
-    //     $wishlistItem = Wishlist::where('user_id', auth()->id())
-    //         ->where('product_id', $id)
-    //         ->first();
-
-    //     if ($wishlistItem) {
-    //         $wishlistItem->delete();
-    //     } else {
-    //         Wishlist::create([
-    //             'user_id' => auth()->id(),
-    //             'product_id' => $id
-    //         ]);
-    //     }
-
-    //     $this->dispatch('wishlist-updated');
-    // }
 
 
     public function render()
@@ -99,6 +85,20 @@ class AllProductsPage extends Component
         if ($this->metal) {
             $productsQuery = Product::whereIn('metal_id', $this->metal);
         }
+        if ($this->gender == 'F') {
+            $productsQuery = Product::where('gender', 'F');
+        }
+        if ($this->gender == 'M') {
+            $productsQuery = Product::where('gender', 'M');
+        }
+        if ($this->sort == 'latest') {
+            $productsQuery->latest();
+        }
+        if ($this->sort == 'price') {
+
+            $productsQuery = Product::with('productsize');
+        }
+
 
 
         $categories = Category::where('status', 1)->where('category_id', '!=', null)->get();

@@ -18,6 +18,7 @@
 </head>
 
 <body class="antialiased">
+    @livewire('notifications')
     <div wire:ignore>
         <div x-data>
             @livewire('navbar')
@@ -26,7 +27,7 @@
 
     @yield('content')
 
-    @livewire('notifications')
+
 
     @livewire('wishlist-canvas')
     @livewire('cart-canvas')

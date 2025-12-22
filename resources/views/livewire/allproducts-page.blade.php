@@ -57,6 +57,22 @@
                 </div>
             </div>
             <div class="w-full md:w-5/6 px-2">
+                {{-- <div class="px-2 mb-4 mt-2">
+                    <div class="items-center justify-between hidden px-2 py-2  md:flex dark:bg-pink-900 ">
+                        <div class="flex items-center justify-between gap-4">
+                            <select name="sort" wire:model.live="sort"
+                                class="block w-40 text-base  cursor-pointer dark:text-pink-400 dark:bg-pink-900">
+                                <option value="latest">Sort by latest</option>
+                                <option value="price">Sort by Price</option>
+                            </select>
+                            <select name="gender" wire:model.live="gender"
+                                class="block w-42 text-base  cursor-pointer dark:text-pink-400 dark:bg-pink-900">
+                                <option value="F">Sort by Women</option>
+                                <option value="M">Sort by Men</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> --}}
                 <div class="flex flex-wrap items-center -mx-1">
                     @forelse($products as $product)
                         <div class="w-[18rem] p-0 bg-white shadow-md rounded-lg mt-3 mx-1"

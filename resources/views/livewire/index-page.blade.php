@@ -1,6 +1,4 @@
 <div>
-    @livewire('cart-component')
-    {{-- ALL YOUR EXISTING CODE BELOW --}}
 
     {{-- Session Success Message --}}
     @if (session()->has('success'))
@@ -32,7 +30,6 @@
         <a class="prev" onclick="plusSlides(-1)">Prev</a>
         <a class="next" onclick="plusSlides(1)">Next</a>
     </div>
-    {{-- <livewire:heroslider/> --}}
     <div style="text-align:center">
         @foreach ($sliders as $loop)
             <span class="dot" onclick="currentSlide({{ $loop->iteration }})"></span>
@@ -123,7 +120,7 @@
                             </span>
                         </div>
                         <div class="flex items-center justify-between mt-2">
-                            <a wire:navigate href="{{ url('shop-now/' . $latest->id) }}"
+                            <a wire:navigate href="{{ url('product/' . $latest->id) }}"
                                 class="bg-green-600 text-white text-sm px-4 py-2 rounded hover:bg-green-700">Shop
                                 Now</a>
 
@@ -156,7 +153,7 @@
                     <div class="p-4">
                         <h5 class="text-xl font-semibold">{{ $rated->product->name }}</h5>
                         <div class="flex justify-between items-center">
-                            <span class="text-lg font-medium">Rs.
+                            <span class="text-lg font-medium">₹
                                 {{ $rated->product->productSize[0]->metal_price + $rated->product->productSize[0]->gemstone_price + $rated->product->productSize[0]->making_charges + $rated->product->productSize[0]->gst }}</span>
                             <span class="my-1 text-yellow-500">
                                 @php $rating = $rated->product->review->first()->rating ?? 0; @endphp
@@ -166,7 +163,7 @@
                             </span>
                         </div>
                         <div class="flex items-center justify-between mt-2">
-                            <a wire:navigate href="{{ url('shop-now/' . $rated->product->id) }}"
+                            <a wire:navigate href="{{ url('product/' . $rated->product->id) }}"
                                 class="bg-[#5C3422] text-white text-sm px-4 py-2 rounded hover:bg-[#4a2b1b]">Shop
                                 Now</a>
 

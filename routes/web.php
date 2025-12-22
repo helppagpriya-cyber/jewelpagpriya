@@ -20,6 +20,7 @@ use App\Livewire\Reviews;
 use App\Livewire\Search;
 use App\Livewire\Category;
 use App\Livewire\Categorypage;
+use App\Livewire\ProductDetailPage;
 use App\Livewire\ProductPage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -29,12 +30,13 @@ use Illuminate\Support\Facades\Route as RouteFacade;
 
 Route::get('/', IndexPage::class)->name('home');
 Route::get('search', Search::class,)->name('search');
-Route::get('product/{product_id}', Product::class)->name('product');
+Route::get('product/{productId}', ProductDetailPage::class)->name('product');
 Route::get('/all-products', AllProductsPage::class)->name('allProducts');
 Route::get('categories', Categoriespage::class)->name('categories');
 Route::get('subcategory/{category}', Categorypage::class)->name('category');
 Route::get('review/{product_id}', Reviews::class)->name('review')->middleware('userAuth');
-Route::get('/payment/{order}', CheckoutPayment::class)->name('checkout.payment')->middleware('userAuth');
+
+Route::get('/payment/{productId}', CheckoutPayment::class)->name('checkout.payment')->middleware('userAuth');
 
 
 Route::post('/logout', function () {
@@ -55,7 +57,7 @@ Route::get('/vendororders', OrderList::class)->name('vendor.orders')->middleware
 
 
 
-Route::post('/checkout/callback', [PaymentController::class, 'handleCallback'])
+Route::get('/checkout/callback', [PaymentController::class, 'handleCallback'])
     ->name('checkout.callback')->middleware('auth');
 Route::get('/orders', function () {
     return view('orders-index');

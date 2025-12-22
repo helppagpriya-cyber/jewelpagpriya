@@ -41,7 +41,7 @@ class Product extends Component
     public function addToCart()
     {
         if (!Auth::check()) {
-            return redirect()->route('login'); // use named route if you have one
+            return redirect()->route('login');
         }
 
         $existingCart = Cart::where('user_id', Auth::id())

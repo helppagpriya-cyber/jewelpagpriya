@@ -18,6 +18,7 @@
 </head>
 
 <body class="antialiased">
+    @livewire('notifications')
     <div wire:ignore>
         <div x-data>
             @livewire('navbar')
@@ -26,17 +27,16 @@
 
     {{ $slot }}
 
-    @livewire('notifications')
 
-    @livewire('wishlist-canvas')
-    @livewire('cart-canvas')
-    @livewire('orders-canvas')
 
     <div wire:ignore>
         <div x-data>
             @livewire('footer')
         </div>
     </div>
+    @livewire('wishlist-canvas')
+    @livewire('cart-canvas')
+    @livewire('orders-canvas')
 
     @livewireScripts
     @filamentScripts
@@ -46,6 +46,7 @@
 
         });
     </script>
+
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <div>
     <!-- Backdrop -->
-    <div x-data x-show="$wire.open" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="$wire.close()" wire:ignore>
-    </div>
+    {{-- <div x-data x-show="$wire.open" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="$wire.close()" wire:ignore>
+    </div> --}}
 
     <!-- Canvas Panel -->
     <div x-data x-show="$wire.open" x-transition:enter="transition ease-out duration-300"

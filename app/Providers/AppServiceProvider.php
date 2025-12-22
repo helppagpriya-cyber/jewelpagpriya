@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use Filament\Notifications\Livewire\Notifications;
+use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\VerticalAlignment;
+use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +25,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        Notifications::alignment(Alignment::Right);
+        Notifications::verticalAlignment(VerticalAlignment::Start);
+        FilamentColor::register([
+            'danger' => Color::Red,
+            'gray' => Color::Zinc,
+            'info' => Color::Blue,
+            'primary' => Color::Amber,
+            'success' => Color::Green,
+            'warning' => Color::Amber,
+        ]);
         if (env('APP_ENV') === 'production') {
             URL::forceScheme('https');
         }

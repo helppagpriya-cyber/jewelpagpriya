@@ -1,5 +1,6 @@
 import './bootstrap';;
 
+
 document.addEventListener('DOMContentLoaded', () => {
     // Helper function to toggle offcanvas
     const toggleOffcanvas = (id) => {
