@@ -10,8 +10,9 @@
                     aria-label="Close cart">
                     <i class="fas fa-times"></i>
                 </button>
-                {{-- <button wire:click="removeFromCart({{ $cart->product_id }})" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" aria-label="Remove from cart">
-    <i class="fas fa-times"></i> --}}
+                <button wire:click="removeFromCart({{ $cart->product_id }})"
+                    class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" aria-label="Remove from cart">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="flex-1 overflow-y-auto p-4">

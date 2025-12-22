@@ -49,7 +49,7 @@
                         <span
                             class="text-xl text-gray-400 line-through">₹{{ number_format($this->priceDetails['base']) }}</span>
                         <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-sm font-bold">
-                            ₹{{ $this->priceDetails['discount']->discount }} OFF
+                            ₹{{ $this->priceDetails['discount'] }} OFF
                         </span>
                     @endif
                 </div>

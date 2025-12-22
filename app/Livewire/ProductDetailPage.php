@@ -38,7 +38,7 @@ class ProductDetailPage extends Component
     public function priceDetails()
     {
         $size = $this->selectedSize;
-        if (!$size) return ['base' => 0, 'final' => 0, 'discount' => null];
+        if (!$size) return ['base' => 0, 'final' => 0, 'discount' => 0];
 
         $basePrice = $size->metal_price + $size->gemstone_price + $size->making_charges + $size->gst;
 

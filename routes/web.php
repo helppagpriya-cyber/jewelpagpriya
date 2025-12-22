@@ -7,6 +7,7 @@ use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
+use App\Livewire\CartPage;
 use App\Livewire\Categoriespage;
 use App\Livewire\Vendor\ProductList;
 use App\Livewire\Vendor\Cart;
@@ -34,20 +35,24 @@ Route::get('product/{productId}', ProductDetailPage::class)->name('product');
 Route::get('/all-products', AllProductsPage::class)->name('allProducts');
 Route::get('categories', Categoriespage::class)->name('categories');
 Route::get('subcategory/{category}', Categorypage::class)->name('category');
-Route::get('review/{product_id}', Reviews::class)->name('review')->middleware('userAuth');
+Route::get('/policy', PolicyPage::class)->name('policy.show');
 
-Route::get('/payment/{productId}', CheckoutPayment::class)->name('checkout.payment')->middleware('userAuth');
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect('/');
+    })->name('logout');
+    Route::get('review/{product_id}', Reviews::class)->name('review')->middleware('userAuth');
+    Route::get('/payment/{productId}', CheckoutPayment::class)->name('checkout.payment')->middleware('userAuth');
+    Route::get('/cart', CartPage::class)->name('cart')->middleware('userAuth');
+});
 
-
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
-Route::get('/login', Login::class)->name('login');
-Route::get('/register', Register::class)->name('register');
-Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
-Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
-
+Route::middleware('guest')->group(function () {
+    Route::get('/login', Login::class)->name('login');
+    Route::get('/register', Register::class)->name('register');
+    Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
+    Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
+});
 
 Route::get('/vendorproducts', ProductList::class)->name('vendor.products')->middleware('auth');
 Route::get('/vendorcart', Cart::class)->name('vendor.vendorcart')->middleware('auth');
@@ -62,7 +67,7 @@ Route::get('/checkout/callback', [PaymentController::class, 'handleCallback'])
 Route::get('/orders', function () {
     return view('orders-index');
 })->name('orders-index');
-Route::get('/policy', PolicyPage::class)->name('policy.show');
+
 
 Route::controller(\App\Http\Controllers\IndexController::class)->group(function () {
     Route::get('women', 'women');

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Product;
+use App\Models\ProductSize;
 use Illuminate\Support\Facades\Cookie;
 
 class CartManagement
@@ -24,15 +25,22 @@ class CartManagement
             $cart_items[$existing_item]['quantity']++;
             $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
         } else {
-            $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images']);
+            $product = Product::where('id', $product_id)->first(['id', 'name', 'images']);
+            $price = ProductSize::select('metal_price', 'gemstone_price', 'making_charges', 'gst')->where('product_id', $product_id)->first();
+            $price = $price ? $price : (object)[
+                'metal_price' => 0,
+                'gemstone_price' => 0,
+                'making_charges' => 0,
+                'gst' => 0
+            ];
             if ($product) {
                 $cart_items[] = [
                     'product_id' => $product_id,
                     'name' => $product->name,
                     'image' => $product->images[0],
                     'quantity' => 1,
-                    'unit_amount' => $product->price,
-                    'total_amount' => $product->price,
+                    'unit_amount' => $price->metal_price + $price->gemstone_price + $price->making_charges + $price->gst,
+                    'total_amount' => $price->metal_price + $price->gemstone_price + $price->making_charges + $price->gst,
 
                 ];
             }
@@ -59,14 +67,21 @@ class CartManagement
             $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
         } else {
             $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images']);
+            $price = ProductSize::select('metal_price', 'gemstone_price', 'making_charges', 'gst')->where('product_id', $product_id)->first();
+            $price = $price ? $price : (object)[
+                'metal_price' => 0,
+                'gemstone_price' => 0,
+                'making_charges' => 0,
+                'gst' => 0
+            ];
             if ($product) {
                 $cart_items[] = [
                     'product_id' => $product_id,
                     'name' => $product->name,
                     'image' => $product->images[0],
                     'quantity' => $qty,
-                    'unit_amount' => $product->price,
-                    'total_amount' => $product->price,
+                    'unit_amount' => $price->metal_price + $price->gemstone_price + $price->making_charges + $price->gst,
+                    'total_amount' => $price->metal_price + $price->gemstone_price + $price->making_charges + $price->gst,
 
                 ];
             }

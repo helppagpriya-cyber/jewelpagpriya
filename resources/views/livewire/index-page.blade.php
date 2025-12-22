@@ -102,7 +102,7 @@
         <div class="flex flex-wrap items-center justify-center gap-4 my-4">
             @foreach ($latestProduct as $latest)
                 <div class="w-[18rem] p-0 bg-white rounded-lg shadow-md">
-                    <a wire:navigate href="{{ url('product/' . $latest->id) }}"
+                    <a wire:navigate href="{{ url('product', $latest->id) }}"
                         class="no-underline text-gray-900 cursor-pointer">
                         <img src="{{ asset('storage/' . $latest->images[0]) }}"
                             class="w-full h-[220px] object-fit:cover rounded-t-lg" alt="Product image">
